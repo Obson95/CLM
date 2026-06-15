@@ -1,12 +1,31 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { Facebook, Instagram, Mail, MapPin, Phone, Send, Smartphone } from "lucide-react";
+import { Mail, MapPin, Phone, Send, Smartphone } from "lucide-react";
 import Image from "next/image";
-import { FormEvent, useState } from "react";
+import type { FormEvent, SVGProps } from "react";
+import { useState } from "react";
 import { Header } from "@/components/Header";
 import { useLanguage } from "@/hooks/useLanguage";
 import { schoolInfo, socialLinks } from "@/lib/constants";
+
+function FacebookIcon(props: SVGProps<SVGSVGElement>) {
+  return (
+    <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" {...props}>
+      <path d="M14 8.5V6.75c0-.7.16-1.05 1.13-1.05H17V2.24C16.1 2.12 15.45 2 14.56 2c-2.77 0-4.67 1.69-4.67 4.79V8.5H7v3.88h2.89V22h4.11v-9.62h2.8l.47-3.88H14Z" />
+    </svg>
+  );
+}
+
+function InstagramIcon(props: SVGProps<SVGSVGElement>) {
+  return (
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true" {...props}>
+      <rect x="3" y="3" width="18" height="18" rx="5" />
+      <circle cx="12" cy="12" r="4" />
+      <circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none" />
+    </svg>
+  );
+}
 
 const fade = { initial: { opacity: 0, y: 24 }, whileInView: { opacity: 1, y: 0 }, viewport: { once: true, margin: "-80px" }, transition: { duration: 0.55 } };
 
@@ -48,7 +67,7 @@ export default function Home() {
         <section id="admissions" className="section-pad"><div className="mx-auto grid max-w-7xl gap-10 lg:grid-cols-2"><motion.div {...fade}><p className="font-bold text-[#3A7CB8]">{t.nav.admissions}</p><h2 className="mt-3 font-[family-name:var(--font-jakarta)] text-4xl font-black text-[#3D3D3D]">{t.admissions.title}</h2><p className="mt-4 text-lg leading-8 text-slate-600">{t.admissions.text}</p><ol className="mt-8 space-y-4">{t.admissions.steps.map((step, i) => <li key={step} className="flex items-center gap-4 rounded-2xl bg-[#F5F7FA] p-4"><span className="grid size-10 place-items-center rounded-full bg-[#5BA4CF] font-bold text-white">{i + 1}</span><span className="font-semibold text-[#3D3D3D]">{step}</span></li>)}</ol></motion.div>
           <motion.form {...fade} onSubmit={submit} className="rounded-3xl bg-[#F5F7FA] p-6 shadow-xl shadow-slate-200"><h3 className="font-[family-name:var(--font-jakarta)] text-2xl font-bold">{t.admissions.formTitle}</h3>{["name", "phone", "email"].map((field) => <label key={field} className="mt-4 block text-sm font-bold text-slate-700">{t.admissions.fields[field as "name" | "phone" | "email"]}<input required={field !== "email"} type={field === "email" ? "email" : "text"} className="mt-2 w-full rounded-xl border border-slate-200 bg-white px-4 py-3" /></label>)}<label className="mt-4 block text-sm font-bold text-slate-700">{t.admissions.fields.grade}<select className="mt-2 w-full rounded-xl border border-slate-200 bg-white px-4 py-3"><option>7e AF</option><option>8e AF</option><option>9e AF</option><option>Secondaire I</option><option>Secondaire II</option><option>Secondaire III</option><option>Secondaire IV</option></select></label><label className="mt-4 block text-sm font-bold text-slate-700">{t.admissions.fields.message}<textarea rows={4} className="mt-2 w-full rounded-xl border border-slate-200 bg-white px-4 py-3" /></label>{/* TODO: connect to backend or email service */}<button type="submit" className="mt-5 inline-flex items-center gap-2 rounded-full bg-[#5BA4CF] px-7 py-4 font-bold text-white hover:bg-[#3A7CB8]"><Send size={18} />{t.admissions.send}</button>{sent && <p role="status" className="mt-4 font-semibold text-[#3A7CB8]">{t.admissions.success}</p>}</motion.form></div></section>
 
-        <section id="contact" className="section-pad bg-[#F5F7FA]"><div className="mx-auto grid max-w-7xl gap-8 lg:grid-cols-2"><motion.div {...fade}><h2 className="font-[family-name:var(--font-jakarta)] text-4xl font-black text-[#3D3D3D]">{t.contact.title}</h2><p className="mt-4 text-lg text-slate-600">{t.contact.text}</p><div className="mt-8 grid gap-4"><p><MapPin className="mr-2 inline text-[#5BA4CF]" />{schoolInfo.address}</p><p><Phone className="mr-2 inline text-[#5BA4CF]" />{schoolInfo.phone}</p><p><Mail className="mr-2 inline text-[#5BA4CF]" />{schoolInfo.email}</p><p><Smartphone className="mr-2 inline text-[#5BA4CF]" />{language === "kr" ? schoolInfo.hoursKr : schoolInfo.hoursFr}</p></div><div className="mt-6 flex gap-3"><a aria-label="Facebook" href={socialLinks.facebook} className="rounded-full bg-white p-3 text-[#3A7CB8]"><Facebook /></a><a aria-label="Instagram" href={socialLinks.instagram} className="rounded-full bg-white p-3 text-[#3A7CB8]"><Instagram /></a><a aria-label="WhatsApp" href={socialLinks.whatsapp} className="rounded-full bg-white p-3 text-[#3A7CB8]"><Phone /></a></div></motion.div><motion.div {...fade} className="grid min-h-80 place-items-center rounded-3xl bg-white p-8 text-center shadow-xl shadow-slate-200"><div><MapPin className="mx-auto mb-4 size-12 text-[#5BA4CF]" /><p className="font-[family-name:var(--font-jakarta)] text-2xl font-bold">{t.contact.map}</p><p className="mt-2 text-slate-600">19.608° N, 72.214° W</p></div></motion.div></div></section>
+        <section id="contact" className="section-pad bg-[#F5F7FA]"><div className="mx-auto grid max-w-7xl gap-8 lg:grid-cols-2"><motion.div {...fade}><h2 className="font-[family-name:var(--font-jakarta)] text-4xl font-black text-[#3D3D3D]">{t.contact.title}</h2><p className="mt-4 text-lg text-slate-600">{t.contact.text}</p><div className="mt-8 grid gap-4"><p><MapPin className="mr-2 inline text-[#5BA4CF]" />{schoolInfo.address}</p><p><Phone className="mr-2 inline text-[#5BA4CF]" />{schoolInfo.phone}</p><p><Mail className="mr-2 inline text-[#5BA4CF]" />{schoolInfo.email}</p><p><Smartphone className="mr-2 inline text-[#5BA4CF]" />{language === "kr" ? schoolInfo.hoursKr : schoolInfo.hoursFr}</p></div><div className="mt-6 flex gap-3"><a aria-label="Facebook" href={socialLinks.facebook} className="rounded-full bg-white p-3 text-[#3A7CB8]"><FacebookIcon className="size-6" /></a><a aria-label="Instagram" href={socialLinks.instagram} className="rounded-full bg-white p-3 text-[#3A7CB8]"><InstagramIcon className="size-6" /></a><a aria-label="WhatsApp" href={socialLinks.whatsapp} className="rounded-full bg-white p-3 text-[#3A7CB8]"><Phone /></a></div></motion.div><motion.div {...fade} className="grid min-h-80 place-items-center rounded-3xl bg-white p-8 text-center shadow-xl shadow-slate-200"><div><MapPin className="mx-auto mb-4 size-12 text-[#5BA4CF]" /><p className="font-[family-name:var(--font-jakarta)] text-2xl font-bold">{t.contact.map}</p><p className="mt-2 text-slate-600">19.608° N, 72.214° W</p></div></motion.div></div></section>
       </main>
       <footer className="bg-[#3D3D3D] px-4 py-10 text-white"><div className="mx-auto flex max-w-7xl flex-col gap-6 md:flex-row md:items-center md:justify-between"><div><strong className="font-[family-name:var(--font-jakarta)] text-xl">{schoolInfo.name}</strong><p className="text-white/70">{language === "kr" ? schoolInfo.mottoKr : schoolInfo.mottoFr}</p></div><p>© {new Date().getFullYear()} • {t.footer.made}</p></div></footer>
     </>
