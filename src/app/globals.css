@@ -2,9 +2,28 @@
 @tailwind components;
 @tailwind utilities;
 
-:root { --primary: #5BA4CF; --primary-dark: #3A7CB8; --neutral-dark: #3D3D3D; --neutral-mid: #6B7280; --neutral-light: #E5E7EB; --off-white: #F5F7FA; --text: #1A1A1A; }
+:root {
+  --primary: #2F6690;
+  --primary-dark: #16425B;
+  --primary-mid: #3A7CA5;
+  --primary-light: #81C3D7;
+  --neutral-light: #D9DCD6;
+  --off-white: #F7F8F5;
+  --text: #16425B;
+}
 html { scroll-behavior: smooth; }
-body { background: #fff; color: var(--text); }
+body {
+  background: #fff;
+  color: var(--text);
+  font-size: 16px;
+  line-height: 1.6;
+  text-rendering: optimizeLegibility;
+}
+h1, h2, h3, h4 {
+  font-family: var(--font-jakarta), var(--font-inter), system-ui, sans-serif;
+  line-height: 1.12;
+}
+p { line-height: 1.65; }
 :focus-visible { outline: 3px solid var(--primary); outline-offset: 3px; }
 .section-pad { padding: 5rem 1rem; }
 @media (min-width: 768px) { .section-pad { padding: 7rem 2rem; } }

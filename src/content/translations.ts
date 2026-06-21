@@ -2,7 +2,7 @@ import { BookOpen, Brain, Dumbbell, Globe2, Landmark, Laptop, Palette, Users } f
 
 export const translations = {
   kr: {
-    nav: { home: "Akèy", about: "Sou Nou", programs: "Pwogram", life: "Lavi Lekòl", admissions: "Enskripsyon", contact: "Kontak" },
+    nav: { home: "Akèy", about: "Sou Nou", programs: "Pwogram", classes: "Klas 2026-2027", life: "Lavi Lekòl", admissions: "Enskripsyon", contact: "Kontak" },
     hero: { eyebrow: "Milot, Ayiti • Toupre Citadelle Laferrière", headline: "Fòme lidè demen yo, jodi a.", text: "Nan Collège Laferrière de Milot, nou mete disiplin, konesans, kilti ak sèvis kominotè ansanm pou prepare jèn yo pou yon avni solid.", cta: "Enskri Kounye a", secondary: "Dekouvri lekòl la" },
     about: { title: "Yon lekòl ki grandi ak kominote Milot la", intro: ["Collège Laferrière de Milot akonpaye elèv yo ak bon jan ansèyman, sipò moral, ak respè pou rasin kiltirèl nou.", "Nou kwè chak timoun merite yon anviwònman ki ankouraje kiryozite, responsablite, ak rèv ki pi laj pase limit jounen an.", "Vizyon nou se fòme sitwayen onèt, kreyatif, e pare pou sèvi Ayiti ak mond lan."], quote: "Lekòl la bay pitit mwen konfyans pou li aprann, poze kesyon, epi sèvi lòt moun.", quoteBy: "— Yon paran elèv" },
     stats: [{ label: "Ane eksperyans", value: 15, suffix: "+" }, { label: "Elèv", value: 400, suffix: "+" }, { label: "Anseyan", value: 30, suffix: "+" }, { label: "To reyisit", value: 92, suffix: "%" }],
@@ -15,6 +15,7 @@ export const translations = {
       { title: "Espò ak Edikasyon Fizik", description: "Sante, disiplin, ekip, ak detèminasyon sou teren an ak nan lavi.", icon: Dumbbell },
       { title: "Lidèchip ak Sivik", description: "Sèvis kominotè, responsablite sitwayen, ak kapasite pou dirije avèk entegrite.", icon: Landmark },
     ],
+    classes: { title: "Klas ki ap ouvri pou ane 2026-2027", text: "Nou kòmanse ane a ak klas preskolè yo ansanm ak premye sik fondamantal la. Chak fich montre lis liv, founiti, ak frè lekòl pou fanmi yo ka prepare alè.", feeLabel: "Frè total", viewLabel: "Mande enfòmasyon" },
     galleryTitle: "Lavi Lekòl", galleryText: "Kèk moman ki montre aprantisaj, amitye, ak enèji kominote nou an.",
     gallery: ["Elèv nan klas", "Travay gwoup", "Jounen kilti", "Laboratwa syans", "Aktivite espò", "Lekti nan bibliyotèk", "Selebrasyon kominotè", "Atelye teknoloji"],
     admissions: { title: "Enskripsyon", text: "Nou fè pwosesis la senp pou fanmi yo. Kontakte nou pou verifye plas ki disponib pou ane akademik la.", steps: ["Ranpli fòm nan", "Soumèt dokiman yo", "Entèvyou", "Konfirmasyon"], formTitle: "Mande enfòmasyon", fields: { name: "Non konplè", phone: "Nimewo telefòn", email: "Imel (opsyonèl)", grade: "Klas", message: "Mesaj" }, send: "Voye", success: "Mèsi! Nou resevwa mesaj ou a." },
@@ -22,7 +23,7 @@ export const translations = {
     footer: { made: "Fèt ak ❤️ an Ayiti" },
   },
   fr: {
-    nav: { home: "Accueil", about: "À Propos", programs: "Programmes", life: "Vie Scolaire", admissions: "Admissions", contact: "Contact" },
+    nav: { home: "Accueil", about: "À Propos", programs: "Programmes", classes: "Classes 2026-2027", life: "Vie Scolaire", admissions: "Admissions", contact: "Contact" },
     hero: { eyebrow: "Milot, Haïti • Près de la Citadelle Laferrière", headline: "Former les leaders de demain, aujourd'hui.", text: "Au Collège Laferrière de Milot, discipline, savoir, culture et service communautaire préparent les jeunes à un avenir solide.", cta: "S'inscrire", secondary: "Découvrir l'école" },
     about: { title: "Une école enracinée dans la communauté de Milot", intro: ["Le Collège Laferrière de Milot accompagne les élèves avec un enseignement sérieux, un soutien moral et le respect de nos racines culturelles.", "Nous croyons que chaque enfant mérite un environnement qui encourage la curiosité, la responsabilité et de grandes ambitions.", "Notre vision est de former des citoyens honnêtes, créatifs et prêts à servir Haïti et le monde."], quote: "L'école donne à mon enfant la confiance d'apprendre, de poser des questions et de servir les autres.", quoteBy: "— Un parent" },
     stats: [{ label: "Années d'expérience", value: 15, suffix: "+" }, { label: "Élèves", value: 400, suffix: "+" }, { label: "Enseignants", value: 30, suffix: "+" }, { label: "Taux de réussite", value: 92, suffix: "%" }],
@@ -35,6 +36,7 @@ export const translations = {
       { title: "Sports et Éducation Physique", description: "Santé, discipline, esprit d'équipe et détermination.", icon: Dumbbell },
       { title: "Leadership et Civisme", description: "Service communautaire, responsabilité citoyenne et leadership intègre.", icon: Users },
     ],
+    classes: { title: "Classes ouvertes pour l'année 2026-2027", text: "Nous lançons l'année avec le préscolaire et le premier cycle fondamental. Chaque fiche présente les livres, fournitures et frais de scolarité afin d'aider les familles à se préparer.", feeLabel: "Frais total", viewLabel: "Demander des infos" },
     galleryTitle: "Vie Scolaire", galleryText: "Des moments qui montrent l'apprentissage, l'amitié et l'énergie de notre communauté.",
     gallery: ["Élèves en classe", "Travail d'équipe", "Journée culturelle", "Laboratoire de sciences", "Activité sportive", "Lecture à la bibliothèque", "Célébration communautaire", "Atelier technologie"],
     admissions: { title: "Admissions", text: "Nous rendons le processus simple pour les familles. Contactez-nous pour vérifier les places disponibles.", steps: ["Remplir le formulaire", "Soumettre les documents", "Entretien", "Confirmation"], formTitle: "Demander des informations", fields: { name: "Nom complet", phone: "Téléphone", email: "Email (optionnel)", grade: "Classe", message: "Message" }, send: "Envoyer", success: "Merci ! Nous avons reçu votre message." },
