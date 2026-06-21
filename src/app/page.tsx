@@ -5,6 +5,7 @@ import { BookOpen, ClipboardList, Mail, MapPin, Phone, Send, Smartphone, WalletC
 import Image from "next/image";
 import type { FormEvent, SVGProps } from "react";
 import { useState } from "react";
+import cardLogo from "../../assets/cards.jpeg";
 import heroImage from "../../assets/hero.jpeg";
 import { Header } from "@/components/Header";
 import { useLanguage } from "@/hooks/useLanguage";
@@ -62,7 +63,66 @@ export default function Home() {
 
         <section id="programs" className="section-pad"><div className="mx-auto max-w-7xl"><motion.div {...fade} className="max-w-3xl"><p className="font-bold text-[#2F6690]">{t.nav.programs}</p><h2 className="mt-3 font-heading text-4xl font-black text-[#16425B]">{t.programsTitle}</h2><p className="mt-4 text-lg text-slate-600">{t.programsText}</p></motion.div><div className="mt-10 grid gap-5 md:grid-cols-2">{t.programs.map((program) => { const Icon = program.icon; return <motion.article {...fade} key={program.title} className="group rounded-2xl bg-white p-6 shadow-lg shadow-slate-200 transition hover:-translate-y-1 hover:shadow-xl"><Icon className="mb-5 size-10 text-[#3A7CA5]" aria-hidden="true" /><h3 className="font-heading text-2xl font-bold text-[#16425B]">{program.title}</h3><p className="mt-3 leading-7 text-slate-600">{program.description}</p></motion.article>; })}</div></div></section>
 
-        <section id="classes" className="section-pad bg-[#F7F8F5]"><div className="mx-auto max-w-7xl"><motion.div {...fade} className="max-w-3xl"><p className="font-bold text-[#2F6690]">{t.nav.classes}</p><h2 className="mt-3 font-heading text-4xl font-black text-[#16425B]">{t.classes.title}</h2><p className="mt-4 text-lg leading-8 text-slate-600">{t.classes.text}</p></motion.div><div className="mt-10 grid gap-5 lg:grid-cols-3">{openingClasses.map((schoolClass) => <motion.article {...fade} key={schoolClass.title} className="flex min-h-full flex-col rounded-2xl border border-[#D9DCD6] bg-white p-6 shadow-lg shadow-slate-200 transition hover:-translate-y-1 hover:shadow-xl"><div className="flex items-start justify-between gap-4"><div><p className="text-sm font-bold uppercase tracking-wide text-[#3A7CA5]">{schoolClass.level}</p><h3 className="mt-2 font-heading text-2xl font-black text-[#16425B]">{schoolClass.title}</h3></div><span className="rounded-full bg-[#81C3D7]/25 px-3 py-1 text-xs font-black text-[#16425B]">2026-2027</span></div><div className="mt-5 rounded-2xl bg-[#16425B] p-4 text-white"><p className="text-sm font-semibold text-white/75">{t.classes.feeLabel}</p><p className="font-heading text-3xl font-black">{schoolClass.fee}</p></div><details open className="group mt-5 rounded-2xl bg-[#F7F8F5] p-4"><summary className="flex cursor-pointer list-none items-center gap-2 font-heading text-lg font-extrabold text-[#16425B]"><WalletCards className="size-5 text-[#2F6690]" />{t.classes.paymentsLabel}</summary><ul className="mt-3 grid gap-2 text-sm font-semibold text-slate-700">{schoolClass.payments.map((payment) => <li key={payment} className="rounded-xl bg-white px-3 py-2">{payment}</li>)}</ul></details><details className="group mt-3 rounded-2xl bg-[#F7F8F5] p-4"><summary className="flex cursor-pointer list-none items-center gap-2 font-heading text-lg font-extrabold text-[#16425B]"><BookOpen className="size-5 text-[#2F6690]" />{t.classes.booksLabel}</summary><ol className="mt-3 space-y-2 pl-5 text-sm leading-6 text-slate-700">{schoolClass.books.map((book) => <li key={book} className="list-decimal">{book}</li>)}</ol></details><details className="group mt-3 rounded-2xl bg-[#F7F8F5] p-4"><summary className="flex cursor-pointer list-none items-center gap-2 font-heading text-lg font-extrabold text-[#16425B]"><ClipboardList className="size-5 text-[#2F6690]" />{t.classes.suppliesLabel}</summary><ul className="mt-3 space-y-2 text-sm leading-6 text-slate-700">{schoolClass.supplies.map((item) => <li key={item} className="flex gap-2"><span className="mt-2 size-1.5 shrink-0 rounded-full bg-[#2F6690]" />{item}</li>)}</ul></details><a href="#admissions" className="mt-5 inline-flex justify-center rounded-full bg-[#16425B] px-5 py-3 text-sm font-bold text-white transition hover:bg-[#2F6690]">{t.classes.viewLabel}</a></motion.article>)}</div></div></section>
+        <section id="classes" className="section-pad bg-[#F7F8F5]">
+          <div className="mx-auto max-w-7xl">
+            <motion.div {...fade} className="max-w-3xl">
+              <p className="font-bold text-[#2F6690]">{t.nav.classes}</p>
+              <h2 className="mt-3 font-heading text-4xl font-black text-[#16425B]">{t.classes.title}</h2>
+              <p className="mt-4 text-lg leading-8 text-slate-600">{t.classes.text}</p>
+            </motion.div>
+            <div className="mt-10 grid gap-6 lg:grid-cols-3">
+              {openingClasses.map((schoolClass) => (
+                <motion.article {...fade} key={schoolClass.title} className="relative flex min-h-full flex-col overflow-hidden rounded-2xl border border-[#D9DCD6] bg-white shadow-lg shadow-slate-200 transition hover:-translate-y-1 hover:shadow-xl">
+                  <div className="relative bg-[#16425B] p-6 text-white">
+                    <Image src={cardLogo} alt="" width={92} height={92} className="absolute right-4 top-4 size-20 rounded-full border-4 border-white/20 object-cover opacity-90" />
+                    <p className="pr-24 text-sm font-bold uppercase tracking-wide text-[#81C3D7]">{schoolClass.level}</p>
+                    <h3 className="mt-3 max-w-[14rem] font-heading text-3xl font-black leading-tight">{schoolClass.title}</h3>
+                    <p className="mt-4 text-sm font-bold text-white/75">2026-2027</p>
+                  </div>
+
+                  <div className="grid gap-5 p-6">
+                    <div className="rounded-2xl bg-[#81C3D7]/20 p-4">
+                      <p className="text-sm font-bold text-[#2F6690]">{t.classes.feeLabel}</p>
+                      <p className="font-heading text-4xl font-black text-[#16425B]">{schoolClass.fee}</p>
+                    </div>
+
+                    <section>
+                      <h4 className="flex items-center gap-2 font-heading text-xl font-extrabold text-[#16425B]">
+                        <WalletCards className="size-5 text-[#2F6690]" />
+                        {t.classes.paymentsLabel}
+                      </h4>
+                      <ul className="mt-3 grid gap-2 text-sm font-semibold text-slate-700 sm:grid-cols-2 lg:grid-cols-1 xl:grid-cols-2">
+                        {schoolClass.payments.map((payment) => <li key={payment} className="rounded-xl bg-[#F7F8F5] px-3 py-2">{payment}</li>)}
+                      </ul>
+                    </section>
+
+                    <section>
+                      <h4 className="flex items-center gap-2 font-heading text-xl font-extrabold text-[#16425B]">
+                        <BookOpen className="size-5 text-[#2F6690]" />
+                        {t.classes.booksLabel}
+                      </h4>
+                      <ol className="mt-3 columns-1 space-y-2 pl-5 text-sm leading-6 text-slate-700">
+                        {schoolClass.books.map((book) => <li key={book} className="break-inside-avoid list-decimal">{book}</li>)}
+                      </ol>
+                    </section>
+
+                    <section>
+                      <h4 className="flex items-center gap-2 font-heading text-xl font-extrabold text-[#16425B]">
+                        <ClipboardList className="size-5 text-[#2F6690]" />
+                        {t.classes.suppliesLabel}
+                      </h4>
+                      <ul className="mt-3 space-y-2 text-sm leading-6 text-slate-700">
+                        {schoolClass.supplies.map((item) => <li key={item} className="flex gap-2"><span className="mt-2 size-1.5 shrink-0 rounded-full bg-[#2F6690]" />{item}</li>)}
+                      </ul>
+                    </section>
+
+                    <a href="#admissions" className="mt-auto inline-flex justify-center rounded-full bg-[#16425B] px-5 py-3 text-sm font-bold text-white transition hover:bg-[#2F6690]">{t.classes.viewLabel}</a>
+                  </div>
+                </motion.article>
+              ))}
+            </div>
+          </div>
+        </section>
 
         <section id="life" className="section-pad bg-[#D9DCD6]"><div className="mx-auto max-w-7xl"><motion.div {...fade} className="text-center"><h2 className="font-heading text-4xl font-black text-[#16425B]">{t.galleryTitle}</h2><p className="mx-auto mt-4 max-w-2xl text-slate-700">{t.galleryText}</p></motion.div><div className="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">{t.gallery.map((caption, i) => <motion.figure {...fade} key={caption} className={`min-h-44 rounded-3xl bg-gradient-to-br ${i % 2 ? "from-[#2F6690] to-[#16425B]" : "from-white to-[#81C3D7]/40"} p-5 shadow-lg shadow-slate-300`}><div className="flex h-full items-end"><figcaption className={`font-bold ${i % 2 ? "text-white" : "text-[#16425B]"}`}>{caption}</figcaption></div></motion.figure>)}</div></div></section>
 
