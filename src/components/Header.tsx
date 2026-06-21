@@ -18,17 +18,17 @@ export function Header() {
   return (
     <header className={`fixed inset-x-0 top-0 z-50 transition-all ${scrolled ? "bg-white/95 py-2 shadow-sm backdrop-blur" : "bg-white/85 py-4 backdrop-blur"}`}>
       <nav className="mx-auto flex max-w-7xl items-center justify-between px-4" aria-label="Main navigation">
-        <a href="#home" className="flex items-center gap-3 font-heading text-[#16425B]">
-          <span className="relative size-14 shrink-0 overflow-hidden rounded-full bg-white shadow-sm ring-1 ring-[#D9DCD6]" aria-hidden="true">
-            <Image src={logo} alt="" fill sizes="56px" className="object-contain p-1" />
+        <a href="#home" className="flex items-center gap-4 font-heading text-[#16425B]">
+          <span className="relative size-16 shrink-0 md:size-20" aria-hidden="true">
+            <Image src={logo} alt="" fill sizes="80px" className="object-contain" />
           </span>
-          <span className="leading-tight">
-            <span className="block text-xl font-black tracking-wide">{schoolInfo.shortName}</span>
-            <span className="block max-w-[13rem] text-xs font-bold sm:max-w-none">College Laferriere de milot</span>
-            <span className="hidden text-[0.68rem] font-semibold text-[#3A7CA5] sm:block">{schoolInfo.motto}</span>
+          <span className="leading-[1.05]">
+            <span className="block text-3xl font-black tracking-wide md:text-4xl">{schoolInfo.shortName}</span>
+            <span className="block max-w-[14rem] text-sm font-extrabold sm:max-w-none md:text-base">College Laferriere de milot</span>
+            <span className="hidden text-xs font-bold text-[#3A7CA5] sm:block md:text-sm">{schoolInfo.motto}</span>
           </span>
         </a>
-        <div className="hidden items-center gap-6 lg:flex">
+        <div className="hidden items-center gap-5 xl:gap-6 lg:flex">
           {links.map(([key, href]) => <a key={key} href={href} className="text-sm font-semibold text-slate-700 hover:text-[#2F6690]">{t.nav[key]}</a>)}
           <LanguageToggle />
         </div>

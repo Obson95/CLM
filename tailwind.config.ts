@@ -5,7 +5,7 @@ const config: Config = {
     extend: {
       fontFamily: {
         body: ["var(--font-inter)", "system-ui", "sans-serif"],
-        heading: ["var(--font-jakarta)", "var(--font-inter)", "system-ui", "sans-serif"],
+        heading: ["var(--font-heading)", "var(--font-inter)", "system-ui", "sans-serif"],
       },
     },
   },
