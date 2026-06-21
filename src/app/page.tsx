@@ -1,7 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { BookOpen, ClipboardList, Mail, MapPin, Phone, Send, Smartphone, WalletCards } from "lucide-react";
+import { BookOpen, ClipboardList, Mail, MapPin, Phone, Send, Smartphone, WalletCards, X } from "lucide-react";
 import Image from "next/image";
 import type { FormEvent, SVGProps } from "react";
 import { useState } from "react";
@@ -38,6 +38,7 @@ function StatCounter({ value, suffix, label }: { value: number; suffix: string; 
 export default function Home() {
   const { t, language } = useLanguage();
   const [sent, setSent] = useState(false);
+  const [selectedClass, setSelectedClass] = useState<(typeof openingClasses)[number] | null>(null);
   const submit = (event: FormEvent<HTMLFormElement>) => { event.preventDefault(); setSent(true); event.currentTarget.reset(); };
   return (
     <>
@@ -70,7 +71,7 @@ export default function Home() {
               <h2 className="mt-3 font-heading text-4xl font-black text-[#16425B]">{t.classes.title}</h2>
               <p className="mt-4 text-lg leading-8 text-slate-600">{t.classes.text}</p>
             </motion.div>
-            <div className="mt-10 grid gap-6 lg:grid-cols-3">
+            <div className="mt-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
               {openingClasses.map((schoolClass) => (
                 <motion.article {...fade} key={schoolClass.title} className="relative flex min-h-full flex-col overflow-hidden rounded-2xl border border-[#D9DCD6] bg-white shadow-lg shadow-slate-200 transition hover:-translate-y-1 hover:shadow-xl">
                   <div className="relative bg-[#16425B] p-6 text-white">
@@ -85,44 +86,65 @@ export default function Home() {
                       <p className="text-sm font-bold text-[#2F6690]">{t.classes.feeLabel}</p>
                       <p className="font-heading text-4xl font-black text-[#16425B]">{schoolClass.fee}</p>
                     </div>
-
-                    <section>
-                      <h4 className="flex items-center gap-2 font-heading text-xl font-extrabold text-[#16425B]">
-                        <WalletCards className="size-5 text-[#2F6690]" />
-                        {t.classes.paymentsLabel}
-                      </h4>
-                      <ul className="mt-3 grid gap-2 text-sm font-semibold text-slate-700 sm:grid-cols-2 lg:grid-cols-1 xl:grid-cols-2">
-                        {schoolClass.payments.map((payment) => <li key={payment} className="rounded-xl bg-[#F7F8F5] px-3 py-2">{payment}</li>)}
-                      </ul>
-                    </section>
-
-                    <section>
-                      <h4 className="flex items-center gap-2 font-heading text-xl font-extrabold text-[#16425B]">
-                        <BookOpen className="size-5 text-[#2F6690]" />
-                        {t.classes.booksLabel}
-                      </h4>
-                      <ol className="mt-3 columns-1 space-y-2 pl-5 text-sm leading-6 text-slate-700">
-                        {schoolClass.books.map((book) => <li key={book} className="break-inside-avoid list-decimal">{book}</li>)}
-                      </ol>
-                    </section>
-
-                    <section>
-                      <h4 className="flex items-center gap-2 font-heading text-xl font-extrabold text-[#16425B]">
-                        <ClipboardList className="size-5 text-[#2F6690]" />
-                        {t.classes.suppliesLabel}
-                      </h4>
-                      <ul className="mt-3 space-y-2 text-sm leading-6 text-slate-700">
-                        {schoolClass.supplies.map((item) => <li key={item} className="flex gap-2"><span className="mt-2 size-1.5 shrink-0 rounded-full bg-[#2F6690]" />{item}</li>)}
-                      </ul>
-                    </section>
-
-                    <a href="#admissions" className="mt-auto inline-flex justify-center rounded-full bg-[#16425B] px-5 py-3 text-sm font-bold text-white transition hover:bg-[#2F6690]">{t.classes.viewLabel}</a>
+                    <div className="grid grid-cols-3 gap-2 text-center text-xs font-bold text-slate-700">
+                      <span className="rounded-xl bg-[#F7F8F5] px-2 py-3">{schoolClass.payments.length} {t.classes.paymentsLabel}</span>
+                      <span className="rounded-xl bg-[#F7F8F5] px-2 py-3">{schoolClass.books.length} {t.classes.booksLabel}</span>
+                      <span className="rounded-xl bg-[#F7F8F5] px-2 py-3">{schoolClass.supplies.length} {t.classes.suppliesLabel}</span>
+                    </div>
+                    <button type="button" onClick={() => setSelectedClass(schoolClass)} className="mt-auto inline-flex justify-center rounded-full bg-[#16425B] px-5 py-3 text-sm font-bold text-white transition hover:bg-[#2F6690]">{t.classes.viewLabel}</button>
                   </div>
                 </motion.article>
               ))}
             </div>
           </div>
         </section>
+
+        {selectedClass && (
+          <div className="fixed inset-0 z-[70] overflow-y-auto bg-[#16425B]/80 px-4 py-6 backdrop-blur-sm" role="dialog" aria-modal="true" aria-labelledby="class-modal-title">
+            <div className="mx-auto max-w-5xl overflow-hidden rounded-3xl bg-white shadow-2xl">
+              <div className="relative bg-[#16425B] p-6 text-white md:p-8">
+                <Image src={cardLogo} alt="" width={116} height={116} className="absolute right-6 top-6 size-24 rounded-full border-4 border-white/20 object-cover opacity-90" />
+                <p className="pr-28 text-sm font-bold uppercase tracking-wide text-[#81C3D7]">{selectedClass.level}</p>
+                <h3 id="class-modal-title" className="mt-3 max-w-2xl font-heading text-4xl font-black leading-tight md:text-5xl">{selectedClass.title}</h3>
+                <p className="mt-3 font-bold text-white/75">Année scolaire 2026-2027</p>
+                <button type="button" onClick={() => setSelectedClass(null)} className="absolute right-4 top-4 rounded-full bg-white/10 p-2 text-white transition hover:bg-white/20" aria-label="Close class details"><X /></button>
+              </div>
+
+              <div className="grid gap-6 p-6 md:grid-cols-[0.85fr_1.15fr] md:p-8">
+                <aside className="space-y-5">
+                  <div className="rounded-2xl bg-[#81C3D7]/20 p-5">
+                    <p className="text-sm font-bold text-[#2F6690]">{t.classes.feeLabel}</p>
+                    <p className="font-heading text-4xl font-black text-[#16425B]">{selectedClass.fee}</p>
+                  </div>
+                  <section className="rounded-2xl border border-[#D9DCD6] p-5">
+                    <h4 className="flex items-center gap-2 font-heading text-xl font-extrabold text-[#16425B]"><WalletCards className="size-5 text-[#2F6690]" />{t.classes.paymentsLabel}</h4>
+                    <ul className="mt-4 grid gap-2 text-sm font-semibold text-slate-700">
+                      {selectedClass.payments.map((payment) => <li key={payment} className="rounded-xl bg-[#F7F8F5] px-3 py-2">{payment}</li>)}
+                    </ul>
+                  </section>
+                </aside>
+
+                <div className="grid gap-6">
+                  <section className="rounded-2xl border border-[#D9DCD6] p-5">
+                    <h4 className="flex items-center gap-2 font-heading text-xl font-extrabold text-[#16425B]"><BookOpen className="size-5 text-[#2F6690]" />{t.classes.booksLabel}</h4>
+                    <ol className="mt-4 columns-1 gap-8 space-y-2 pl-5 text-sm leading-6 text-slate-700 md:columns-2">
+                      {selectedClass.books.map((book) => <li key={book} className="break-inside-avoid list-decimal">{book}</li>)}
+                    </ol>
+                  </section>
+
+                  <section className="rounded-2xl border border-[#D9DCD6] p-5">
+                    <h4 className="flex items-center gap-2 font-heading text-xl font-extrabold text-[#16425B]"><ClipboardList className="size-5 text-[#2F6690]" />{t.classes.suppliesLabel}</h4>
+                    <ul className="mt-4 grid gap-2 text-sm leading-6 text-slate-700 md:grid-cols-2">
+                      {selectedClass.supplies.map((item) => <li key={item} className="flex gap-2 rounded-xl bg-[#F7F8F5] px-3 py-2"><span className="mt-2 size-1.5 shrink-0 rounded-full bg-[#2F6690]" />{item}</li>)}
+                    </ul>
+                  </section>
+
+                  <a href="#admissions" onClick={() => setSelectedClass(null)} className="inline-flex justify-center rounded-full bg-[#16425B] px-6 py-4 font-bold text-white transition hover:bg-[#2F6690]">{t.classes.viewLabel}</a>
+                </div>
+              </div>
+            </div>
+          </div>
+        )}
 
         <section id="life" className="section-pad bg-[#D9DCD6]"><div className="mx-auto max-w-7xl"><motion.div {...fade} className="text-center"><h2 className="font-heading text-4xl font-black text-[#16425B]">{t.galleryTitle}</h2><p className="mx-auto mt-4 max-w-2xl text-slate-700">{t.galleryText}</p></motion.div><div className="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">{t.gallery.map((caption, i) => <motion.figure {...fade} key={caption} className={`min-h-44 rounded-3xl bg-gradient-to-br ${i % 2 ? "from-[#2F6690] to-[#16425B]" : "from-white to-[#81C3D7]/40"} p-5 shadow-lg shadow-slate-300`}><div className="flex h-full items-end"><figcaption className={`font-bold ${i % 2 ? "text-white" : "text-[#16425B]"}`}>{caption}</figcaption></div></motion.figure>)}</div></div></section>
 
