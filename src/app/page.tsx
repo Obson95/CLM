@@ -1,10 +1,10 @@
 "use client";
 
-import { motion } from "framer-motion";
+import { AnimatePresence, motion } from "framer-motion";
 import { BookOpen, BrainCircuit, ClipboardCheck, ClipboardList, Dumbbell, Flag, Globe2, GraduationCap, Hourglass, Landmark, LibraryBig, Mail, MapPin, MessageCircle, Palette, Phone, Send, Smartphone, Sprout, UsersRound, WalletCards, X, type LucideIcon } from "lucide-react";
 import Image from "next/image";
-import type { FormEvent, SVGProps } from "react";
-import { useEffect, useState } from "react";
+import type { FormEvent, KeyboardEvent, SVGProps } from "react";
+import { useEffect, useRef, useState } from "react";
 import cardLogo from "../../assets/cards.jpeg";
 import classroomImage from "../../assets/elevesenlasse.png";
 import heroImage from "../../assets/hero.jpeg";
@@ -44,6 +44,12 @@ const fade = { initial: { opacity: 0, y: 24 }, whileInView: { opacity: 1, y: 0 }
 const programIcons = [BrainCircuit, BookOpen, Smartphone, Palette, Dumbbell, Landmark, UsersRound] as const;
 const galleryImages = [classroomImage, teamworkImage, cultureImage, labImage, sportImage, libraryImage, celebrationImage, techImage] as const;
 
+const classCycles = [
+  { label: "Préscolaire", compactLabel: "Préscol.", classes: openingClasses.slice(0, 3) },
+  { label: "Fondamentale I", compactLabel: "Fond. I", classes: openingClasses.slice(3, 6) },
+  { label: "Fondamentale II", compactLabel: "Fond. II", classes: openingClasses.slice(6, 9) },
+] as const;
+
 function MetricCard({ icon: Icon, value, suffix, label, className }: { icon: LucideIcon; value: number; suffix: string; label: string; className?: string }) {
   return <motion.div {...fade} className={`absolute z-20 w-32 rounded-2xl border border-white/60 bg-white/70 p-4 shadow-xl backdrop-blur sm:w-36 ${className ?? ""}`}><span className="grid size-11 place-items-center rounded-2xl bg-white text-[#C99A2E] shadow-inner ring-1 ring-[#E9C46A]/30"><Icon className="size-6" aria-hidden="true" /></span><strong className="mt-2 block font-heading text-2xl font-black text-[#16425B]">{value}{suffix}</strong><span className="text-xs font-semibold text-slate-600">{label}</span></motion.div>;
 }
@@ -52,7 +58,25 @@ export default function Home() {
   const { t, language } = useLanguage();
   const [sent, setSent] = useState(false);
   const [selectedClass, setSelectedClass] = useState<(typeof openingClasses)[number] | null>(null);
+  const [activeClassCycle, setActiveClassCycle] = useState(0);
+  const touchStartX = useRef<number | null>(null);
+  const activeCycle = classCycles[activeClassCycle];
   const submit = (event: FormEvent<HTMLFormElement>) => { event.preventDefault(); setSent(true); event.currentTarget.reset(); };
+  const selectClassCycle = (index: number) => setActiveClassCycle((index + classCycles.length) % classCycles.length);
+  const handleClassTabKeyDown = (event: KeyboardEvent<HTMLButtonElement>, index: number) => {
+    if (event.key === "ArrowRight") { event.preventDefault(); selectClassCycle(index + 1); }
+    if (event.key === "ArrowLeft") { event.preventDefault(); selectClassCycle(index - 1); }
+    if (event.key === "Home") { event.preventDefault(); selectClassCycle(0); }
+    if (event.key === "End") { event.preventDefault(); selectClassCycle(classCycles.length - 1); }
+    if (event.key === "Enter" || event.key === " ") { event.preventDefault(); selectClassCycle(index); }
+  };
+  const handleClassTouchEnd = (clientX: number) => {
+    if (touchStartX.current === null) return;
+    const delta = touchStartX.current - clientX;
+    touchStartX.current = null;
+    if (Math.abs(delta) < 48) return;
+    selectClassCycle(activeClassCycle + (delta > 0 ? 1 : -1));
+  };
   useEffect(() => { document.body.classList.toggle("overflow-hidden", Boolean(selectedClass)); return () => document.body.classList.remove("overflow-hidden"); }, [selectedClass]);
   return (
     <>
@@ -111,30 +135,73 @@ export default function Home() {
               <h2 className="mt-3 font-heading text-3xl font-black text-[#16425B] sm:text-4xl">{t.classes.title}</h2>
               <p className="mt-4 text-base leading-7 text-slate-600 sm:text-lg sm:leading-8">{t.classes.text}</p>
             </motion.div>
-            <div className="mt-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-              {openingClasses.map((schoolClass, classIndex) => (
-                <article key={`class-${classIndex}-${schoolClass.title}`} className="relative flex min-h-full flex-col overflow-hidden rounded-2xl border border-[#D9DCD6] bg-white shadow-lg shadow-slate-200 transition hover:-translate-y-1 hover:shadow-xl">
-                  <div className="relative bg-[#16425B] p-5 text-white sm:p-6">
-                    <Image src={cardLogo} alt="" width={92} height={92} className="float-right ml-3 mb-3 size-16 rounded-full border-4 border-white/20 object-cover opacity-90 sm:absolute sm:right-4 sm:top-4 sm:mb-0 sm:ml-0 sm:size-20" />
-                    <p className="text-xs font-bold uppercase tracking-wide text-[#E9C46A] sm:pr-24 sm:text-sm">{schoolClass.level}</p>
-                    <h3 className="mt-3 max-w-full clear-none font-heading text-2xl font-black leading-tight sm:max-w-[14rem] sm:text-3xl">{schoolClass.title}</h3>
-                    <p className="mt-4 text-sm font-bold text-white/75">2026-2027</p>
-                  </div>
+            <div className="mt-8 border-b border-[#D9DCD6]" role="tablist" aria-label="Cycles des classes ouvertes">
+              <div className="flex gap-2 overflow-x-auto">
+                {classCycles.map((cycle, index) => {
+                  const isActive = activeClassCycle === index;
+                  return (
+                    <button
+                      key={cycle.label}
+                      id={`class-cycle-tab-${index}`}
+                      type="button"
+                      role="tab"
+                      aria-selected={isActive}
+                      aria-controls={`class-cycle-panel-${index}`}
+                      tabIndex={isActive ? 0 : -1}
+                      onClick={() => selectClassCycle(index)}
+                      onKeyDown={(event) => handleClassTabKeyDown(event, index)}
+                      className={`relative shrink-0 rounded-t-2xl px-4 py-3 text-sm font-extrabold transition duration-300 sm:px-6 sm:text-base ${isActive ? "bg-[#16425B] text-white shadow-lg shadow-[#16425B]/15" : "text-slate-500 hover:text-[#16425B]"}`}
+                    >
+                      <span className="sm:hidden">{cycle.compactLabel}</span>
+                      <span className="hidden sm:inline">{cycle.label}</span>
+                      <span className={`absolute inset-x-3 -bottom-px h-1 rounded-full bg-[#2F6690] transition-all duration-300 ease-out ${isActive ? "opacity-100" : "opacity-0"}`} aria-hidden="true" />
+                    </button>
+                  );
+                })}
+              </div>
+            </div>
+            <div
+              className="mt-6 overflow-hidden"
+              onTouchStart={(event) => { touchStartX.current = event.changedTouches[0]?.clientX ?? null; }}
+              onTouchEnd={(event) => handleClassTouchEnd(event.changedTouches[0]?.clientX ?? 0)}
+            >
+              <AnimatePresence mode="wait" initial={false}>
+                <motion.div
+                  key={activeCycle.label}
+                  id={`class-cycle-panel-${activeClassCycle}`}
+                  role="tabpanel"
+                  aria-labelledby={`class-cycle-tab-${activeClassCycle}`}
+                  initial={{ opacity: 0, x: 20 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  exit={{ opacity: 0, x: -20 }}
+                  transition={{ duration: 0.3, ease: "easeOut" }}
+                  className="grid gap-4 sm:grid-cols-2 sm:gap-6 lg:grid-cols-3"
+                >
+                  {activeCycle.classes.map((schoolClass, classIndex) => (
+                    <article key={`class-${activeClassCycle}-${classIndex}-${schoolClass.title}`} className="relative flex h-full min-h-full flex-col overflow-hidden rounded-2xl border border-[#D9DCD6] bg-white shadow-lg shadow-slate-200 transition hover:-translate-y-1 hover:shadow-xl">
+                      <div className="relative bg-[#16425B] p-5 text-white sm:p-6">
+                        <Image src={cardLogo} alt="" width={92} height={92} className="float-right ml-3 mb-3 size-16 rounded-full border-4 border-white/20 object-cover opacity-90 sm:absolute sm:right-4 sm:top-4 sm:mb-0 sm:ml-0 sm:size-20" />
+                        <p className="text-xs font-bold uppercase tracking-wide text-[#E9C46A] sm:pr-24 sm:text-sm">{schoolClass.level}</p>
+                        <h3 className="mt-3 max-w-full clear-none font-heading text-2xl font-black leading-tight sm:max-w-[14rem] sm:text-3xl">{schoolClass.title}</h3>
+                        <p className="mt-4 text-sm font-bold text-white/75">2026-2027</p>
+                      </div>
 
-                  <div className="flex flex-1 flex-col gap-5 p-6">
-                    <div className="rounded-2xl bg-[#81C3D7]/20 p-4">
-                      <p className="text-sm font-bold text-[#2F6690]">{t.classes.feeLabel}</p>
-                      <p className="font-heading text-3xl font-black text-[#16425B] sm:text-4xl">{schoolClass.fee}</p>
-                    </div>
-                    <div className="grid grid-cols-3 gap-2 text-center text-xs font-bold text-slate-700">
-                      <span className="rounded-xl bg-[#F7F8F5] px-2 py-3">{schoolClass.payments.length} {t.classes.paymentsLabel}</span>
-                      <span className="rounded-xl bg-[#F7F8F5] px-2 py-3">{schoolClass.books.length} {t.classes.booksLabel}</span>
-                      <span className="rounded-xl bg-[#F7F8F5] px-2 py-3">{schoolClass.supplies.length} {t.classes.suppliesLabel}</span>
-                    </div>
-                    <button type="button" suppressHydrationWarning onClick={() => setSelectedClass(schoolClass)} className="mt-auto inline-flex justify-center rounded-full bg-[#16425B] px-5 py-3 text-sm font-bold text-white transition hover:bg-[#2F6690]">{t.classes.openLabel}</button>
-                  </div>
-                </article>
-              ))}
+                      <div className="flex flex-1 flex-col gap-5 p-6">
+                        <div className="rounded-2xl bg-[#81C3D7]/20 p-4">
+                          <p className="text-sm font-bold text-[#2F6690]">{t.classes.feeLabel}</p>
+                          <p className="font-heading text-3xl font-black text-[#16425B] sm:text-4xl">{schoolClass.fee}</p>
+                        </div>
+                        <div className="grid grid-cols-3 gap-2 text-center text-xs font-bold text-slate-700">
+                          <span className="rounded-xl bg-[#F7F8F5] px-2 py-3">{schoolClass.payments.length} {t.classes.paymentsLabel}</span>
+                          <span className="rounded-xl bg-[#F7F8F5] px-2 py-3">{schoolClass.books.length} {t.classes.booksLabel}</span>
+                          <span className="rounded-xl bg-[#F7F8F5] px-2 py-3">{schoolClass.supplies.length} {t.classes.suppliesLabel}</span>
+                        </div>
+                        <button type="button" suppressHydrationWarning onClick={() => setSelectedClass(schoolClass)} className="mt-auto inline-flex justify-center rounded-full bg-[#16425B] px-5 py-3 text-sm font-bold text-white transition hover:bg-[#2F6690]">{t.classes.openLabel}</button>
+                      </div>
+                    </article>
+                  ))}
+                </motion.div>
+              </AnimatePresence>
             </div>
           </div>
         </section>
