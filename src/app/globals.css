@@ -9,6 +9,8 @@
   --primary-light: #81C3D7;
   --neutral-light: #D9DCD6;
   --off-white: #F7F8F5;
+  --accent: #E9C46A;
+  --accent-dark: #C99A2E;
   --text: #16425B;
 }
 html { scroll-behavior: smooth; }

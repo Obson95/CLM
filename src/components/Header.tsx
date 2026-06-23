@@ -32,9 +32,9 @@ export function Header() {
           {links.map(([key, href]) => <a key={key} href={href} className="text-sm font-semibold text-slate-700 hover:text-[#2F6690]">{t.nav[key]}</a>)}
           <LanguageToggle />
         </div>
-        <button type="button" onClick={() => setOpen(true)} className="rounded-full p-2 text-[#16425B] lg:hidden" aria-label="Open menu"><Menu /></button>
+        <button type="button" suppressHydrationWarning onClick={() => setOpen(true)} className="rounded-full p-2 text-[#16425B] lg:hidden" aria-label="Open menu"><Menu /></button>
       </nav>
-      {open && <div className="fixed inset-0 z-50 bg-slate-950/40 lg:hidden" onClick={() => setOpen(false)}><div className="ml-auto h-dvh w-80 max-w-[85vw] bg-white p-6 shadow-2xl" onClick={(e) => e.stopPropagation()}><div className="mb-8 flex items-center justify-between"><strong>Menu</strong><button aria-label="Close menu" onClick={() => setOpen(false)}><X /></button></div><div className="grid gap-4">{links.map(([key, href]) => <a key={key} href={href} onClick={() => setOpen(false)} className="rounded-xl px-3 py-3 font-semibold hover:bg-slate-50">{t.nav[key]}</a>)}<LanguageToggle /></div></div></div>}
+      {open && <div className="fixed inset-0 z-50 bg-slate-950/40 lg:hidden" onClick={() => setOpen(false)}><div className="ml-auto h-dvh w-80 max-w-[85vw] bg-white p-6 shadow-2xl" onClick={(e) => e.stopPropagation()}><div className="mb-8 flex items-center justify-between"><strong>Menu</strong><button suppressHydrationWarning aria-label="Close menu" onClick={() => setOpen(false)}><X /></button></div><div className="grid gap-4">{links.map(([key, href]) => <a key={key} href={href} onClick={() => setOpen(false)} className="rounded-xl px-3 py-3 font-semibold hover:bg-slate-50">{t.nav[key]}</a>)}<LanguageToggle /></div></div></div>}
     </header>
   );
 }
