@@ -6,7 +6,15 @@ import Image from "next/image";
 import type { FormEvent, SVGProps } from "react";
 import { useEffect, useState } from "react";
 import cardLogo from "../../assets/cards.jpeg";
+import classroomImage from "../../assets/elevesenlasse.png";
 import heroImage from "../../assets/hero.jpeg";
+import cultureImage from "../../assets/journeeculturelle.png";
+import labImage from "../../assets/laboratoire.png";
+import libraryImage from "../../assets/lecture.png";
+import sportImage from "../../assets/sport.png";
+import techImage from "../../assets/tech.png";
+import teamworkImage from "../../assets/travialequipe.png";
+import celebrationImage from "../../assets/graduate.png";
 import { Header } from "@/components/Header";
 import { useLanguage } from "@/hooks/useLanguage";
 import { openingClasses, schoolInfo, socialLinks } from "@/lib/constants";
@@ -34,6 +42,7 @@ const smallIconBadge = "grid size-10 place-items-center rounded-2xl bg-[#81C3D7]
 
 const fade = { initial: { opacity: 0, y: 24 }, whileInView: { opacity: 1, y: 0 }, viewport: { once: true, margin: "-80px" }, transition: { duration: 0.55 } };
 const programIcons = [BrainCircuit, BookOpen, Smartphone, Palette, Dumbbell, Landmark, UsersRound] as const;
+const galleryImages = [classroomImage, teamworkImage, cultureImage, labImage, sportImage, libraryImage, celebrationImage, techImage] as const;
 
 function MetricCard({ icon: Icon, value, suffix, label, className }: { icon: LucideIcon; value: number; suffix: string; label: string; className?: string }) {
   return <motion.div {...fade} className={`absolute z-20 w-32 rounded-2xl border border-white/60 bg-white/70 p-4 shadow-xl backdrop-blur sm:w-36 ${className ?? ""}`}><span className="grid size-11 place-items-center rounded-2xl bg-white text-[#C99A2E] shadow-inner ring-1 ring-[#E9C46A]/30"><Icon className="size-6" aria-hidden="true" /></span><strong className="mt-2 block font-heading text-2xl font-black text-[#16425B]">{value}{suffix}</strong><span className="text-xs font-semibold text-slate-600">{label}</span></motion.div>;
@@ -177,7 +186,31 @@ export default function Home() {
           </div>
         )}
 
-        <section id="life" className="section-pad bg-[#D9DCD6]"><div className="mx-auto max-w-7xl"><motion.div {...fade} className="text-center"><h2 className="font-heading text-3xl font-black text-[#16425B] sm:text-4xl">{t.galleryTitle}</h2><p className="mx-auto mt-4 max-w-2xl text-slate-700">{t.galleryText}</p></motion.div><div className="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">{t.gallery.map((caption, i) => <motion.figure {...fade} key={`gallery-${i}`} className={`min-h-44 rounded-3xl bg-gradient-to-br ${i % 2 ? "from-[#2F6690] to-[#16425B]" : "from-white to-[#81C3D7]/40"} p-5 shadow-lg shadow-slate-300`}><div className="flex h-full items-end"><figcaption className={`font-bold ${i % 2 ? "text-white" : "text-[#16425B]"}`}>{caption}</figcaption></div></motion.figure>)}</div></div></section>
+        <section id="life" className="section-pad bg-slate-50">
+          <div className="mx-auto max-w-7xl">
+            <motion.div {...fade} className="text-center">
+              <h2 className="font-heading text-3xl font-black text-[#16425B] sm:text-4xl">{t.galleryTitle}</h2>
+              <div className="mx-auto mt-4 h-0.5 w-[60px] rounded-full bg-[#2F6690]" aria-hidden="true" />
+              <p className="mx-auto mt-4 max-w-2xl text-slate-700">{t.galleryText}</p>
+            </motion.div>
+            <div className="mt-10 grid gap-5 md:grid-cols-2 lg:grid-cols-3">
+              {t.gallery.map((caption, i) => (
+                <motion.figure
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true, margin: "-80px" }}
+                  transition={{ duration: 0.5, delay: i * 0.1 }}
+                  key={`gallery-${i}`}
+                  className="group relative min-h-[240px] overflow-hidden rounded-xl bg-slate-200 shadow-md shadow-slate-200 transition-transform duration-300 ease-out hover:scale-[1.03] hover:shadow-lg"
+                >
+                  <div className="absolute inset-0 grid place-items-center text-sm font-semibold text-slate-500" aria-hidden="true">Photo à venir</div>
+                  <Image src={galleryImages[i]} alt="" fill sizes="(min-width: 1024px) 33vw, (min-width: 768px) 50vw, 100vw" className="object-cover transition-transform duration-300 ease-out group-hover:scale-105" />
+                  <figcaption className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/60 to-transparent px-5 pb-5 pt-14 text-base font-semibold text-white">{caption}</figcaption>
+                </motion.figure>
+              ))}
+            </div>
+          </div>
+        </section>
 
         <section id="admissions" className="section-pad"><div className="mx-auto grid max-w-7xl gap-10 lg:grid-cols-2"><motion.div {...fade}><p className="font-bold text-[#2F6690]">{t.nav.admissions}</p><h2 className="mt-3 font-heading text-3xl font-black text-[#16425B] sm:text-4xl">{t.admissions.title}</h2><p className="mt-4 text-base leading-7 text-slate-600 sm:text-lg sm:leading-8">{t.admissions.text}</p><ol className="mt-8 space-y-4">{t.admissions.steps.map((step, i) => <li key={`step-${i}`} className="flex items-center gap-4 rounded-2xl bg-[#F7F8F5] p-4"><span className="grid size-10 place-items-center rounded-full bg-[#2F6690] font-bold text-white">{i + 1}</span><span className="font-semibold text-[#16425B]">{step}</span></li>)}</ol></motion.div>
           <motion.form {...fade} onSubmit={submit} className="rounded-3xl bg-[#F7F8F5] p-5 shadow-xl shadow-slate-200 sm:p-6"><h3 className="font-heading text-2xl font-bold text-[#16425B]">{t.admissions.formTitle}</h3>{["name", "phone", "email"].map((field) => <label key={field} className="mt-4 block text-sm font-bold text-slate-700">{t.admissions.fields[field as "name" | "phone" | "email"]}<input suppressHydrationWarning required={field !== "email"} type={field === "email" ? "email" : "text"} className="mt-2 w-full rounded-xl border border-[#D9DCD6] bg-white px-4 py-3" /></label>)}<label className="mt-4 block text-sm font-bold text-slate-700">{t.admissions.fields.grade}<select suppressHydrationWarning className="mt-2 w-full rounded-xl border border-[#D9DCD6] bg-white px-4 py-3"><option>Petite Section</option><option>Moyenne Section</option><option>Grande Section</option><option>1ère Année Fondamentale</option><option>2ème Année Fondamentale</option><option>3ème Année Fondamentale</option><option>4ème Année Fondamentale</option><option>5ème Année Fondamentale</option><option>6ème Année Fondamentale</option></select></label><label className="mt-4 block text-sm font-bold text-slate-700">{t.admissions.fields.message}<textarea suppressHydrationWarning rows={4} className="mt-2 w-full rounded-xl border border-[#D9DCD6] bg-white px-4 py-3" /></label>{/* TODO: connect to backend or email service */}<button type="submit" suppressHydrationWarning className="mt-5 inline-flex items-center gap-2 rounded-full bg-[#16425B] px-7 py-4 font-bold text-white hover:bg-[#2F6690]"><Send size={18} />{t.admissions.send}</button>{sent && <p role="status" className="mt-4 font-semibold text-[#2F6690]">{t.admissions.success}</p>}</motion.form></div></section>
