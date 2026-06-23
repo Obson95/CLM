@@ -1,7 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { BookOpen, Brain, ClipboardCheck, ClipboardList, Dumbbell, Flag, Globe, GraduationCap, Hourglass, Landmark, Library, Mail, MapPin, Palette, Phone, Send, Smartphone, TreeDeciduous, Users, WalletCards, X, type LucideIcon } from "lucide-react";
+import { BookOpen, BrainCircuit, ClipboardCheck, ClipboardList, Dumbbell, Flag, Globe2, GraduationCap, Hourglass, Landmark, LibraryBig, Mail, MapPin, MessageCircle, Palette, Phone, Send, Smartphone, Sprout, UsersRound, WalletCards, X, type LucideIcon } from "lucide-react";
 import Image from "next/image";
 import type { FormEvent, SVGProps } from "react";
 import { useState } from "react";
@@ -29,11 +29,14 @@ function InstagramIcon(props: SVGProps<SVGSVGElement>) {
   );
 }
 
+const modernIconBadge = "grid size-12 place-items-center rounded-2xl bg-gradient-to-br from-[#E9C46A] to-[#C99A2E] text-white shadow-lg shadow-[#C99A2E]/25 ring-1 ring-white/70 transition duration-300 group-hover:scale-105 group-hover:rotate-3";
+const smallIconBadge = "grid size-10 place-items-center rounded-2xl bg-[#81C3D7]/20 text-[#2F6690] ring-1 ring-[#81C3D7]/35";
+
 const fade = { initial: { opacity: 0, y: 24 }, whileInView: { opacity: 1, y: 0 }, viewport: { once: true, margin: "-80px" }, transition: { duration: 0.55 } };
-const programIcons = [Brain, BookOpen, Smartphone, Palette, Dumbbell, Landmark, Users] as const;
+const programIcons = [BrainCircuit, BookOpen, Smartphone, Palette, Dumbbell, Landmark, UsersRound] as const;
 
 function MetricCard({ icon: Icon, value, suffix, label, className }: { icon: LucideIcon; value: number; suffix: string; label: string; className?: string }) {
-  return <motion.div {...fade} className={`absolute z-20 w-32 rounded-2xl border border-white/60 bg-white/70 p-4 shadow-xl backdrop-blur sm:w-36 ${className ?? ""}`}><Icon className="size-6 text-[#C99A2E]" aria-hidden="true" /><strong className="mt-2 block font-heading text-2xl font-black text-[#16425B]">{value}{suffix}</strong><span className="text-xs font-semibold text-slate-600">{label}</span></motion.div>;
+  return <motion.div {...fade} className={`absolute z-20 w-32 rounded-2xl border border-white/60 bg-white/70 p-4 shadow-xl backdrop-blur sm:w-36 ${className ?? ""}`}><span className="grid size-11 place-items-center rounded-2xl bg-white text-[#C99A2E] shadow-inner ring-1 ring-[#E9C46A]/30"><Icon className="size-6" aria-hidden="true" /></span><strong className="mt-2 block font-heading text-2xl font-black text-[#16425B]">{value}{suffix}</strong><span className="text-xs font-semibold text-slate-600">{label}</span></motion.div>;
 }
 
 export default function Home() {
@@ -81,15 +84,15 @@ export default function Home() {
               </motion.div>
             </div>
             <div className="mt-16 flex items-center justify-center gap-10 text-[#2F6690] sm:gap-14">
-              <Library className="size-8" aria-hidden="true" />
-              <TreeDeciduous className="size-8" aria-hidden="true" />
-              <Flag className="size-8" aria-hidden="true" />
-              <Globe className="size-8" aria-hidden="true" />
+              <span className={smallIconBadge}><LibraryBig className="size-5" aria-hidden="true" /></span>
+              <span className={smallIconBadge}><Sprout className="size-5" aria-hidden="true" /></span>
+              <span className={smallIconBadge}><Flag className="size-5" aria-hidden="true" /></span>
+              <span className={smallIconBadge}><Globe2 className="size-5" aria-hidden="true" /></span>
             </div>
           </div>
         </section>
 
-        <section id="programs" className="section-pad"><div className="mx-auto max-w-7xl"><motion.div {...fade} className="max-w-3xl"><p className="font-bold text-[#2F6690]">{t.nav.programs}</p><h2 className="mt-3 font-heading text-4xl font-black text-[#16425B]">{t.programsTitle}</h2><p className="mt-4 text-lg text-slate-600">{t.programsText}</p></motion.div><div className="mt-10 grid gap-5 md:grid-cols-2">{t.programs.map((program, index) => { const ProgramIcon = programIcons[index] ?? BookOpen; return <article key={`program-${index}-${program.title}`} className="group rounded-2xl bg-white p-6 shadow-lg shadow-slate-200 transition hover:-translate-y-1 hover:shadow-xl"><ProgramIcon className="mb-5 size-10 text-[#C99A2E]" aria-hidden="true" /><h3 className="font-heading text-2xl font-bold text-[#16425B]">{program.title}</h3><p className="mt-3 leading-7 text-slate-600">{program.description}</p></article>; })}</div></div></section>
+        <section id="programs" className="section-pad"><div className="mx-auto max-w-7xl"><motion.div {...fade} className="max-w-3xl"><p className="font-bold text-[#2F6690]">{t.nav.programs}</p><h2 className="mt-3 font-heading text-4xl font-black text-[#16425B]">{t.programsTitle}</h2><p className="mt-4 text-lg text-slate-600">{t.programsText}</p></motion.div><div className="mt-10 grid gap-5 md:grid-cols-2">{t.programs.map((program, index) => { const ProgramIcon = programIcons[index] ?? BookOpen; return <article key={`program-${index}-${program.title}`} className="group rounded-2xl bg-white p-6 shadow-lg shadow-slate-200 transition hover:-translate-y-1 hover:shadow-xl"><span className={`${modernIconBadge} mb-5`}><ProgramIcon className="size-6" aria-hidden="true" /></span><h3 className="font-heading text-2xl font-bold text-[#16425B]">{program.title}</h3><p className="mt-3 leading-7 text-slate-600">{program.description}</p></article>; })}</div></div></section>
 
         <section id="classes" className="section-pad bg-[#F7F8F5]">
           <div className="mx-auto max-w-7xl">
@@ -144,7 +147,7 @@ export default function Home() {
                     <p className="font-heading text-4xl font-black text-[#16425B]">{selectedClass.fee}</p>
                   </div>
                   <section className="rounded-2xl border border-[#D9DCD6] p-5">
-                    <h4 className="flex items-center gap-2 font-heading text-xl font-extrabold text-[#16425B]"><WalletCards className="size-5 text-[#2F6690]" />{t.classes.paymentsLabel}</h4>
+                    <h4 className="flex items-center gap-2 font-heading text-xl font-extrabold text-[#16425B]"><span className="grid size-9 place-items-center rounded-xl bg-[#81C3D7]/20 text-[#2F6690]"><WalletCards className="size-5" /></span>{t.classes.paymentsLabel}</h4>
                     <ul className="mt-4 grid gap-2 text-sm font-semibold text-slate-700">
                       {selectedClass.payments.map((payment, index) => <li key={`payment-${index}`} className="rounded-xl bg-[#F7F8F5] px-3 py-2">{payment}</li>)}
                     </ul>
@@ -153,14 +156,14 @@ export default function Home() {
 
                 <div className="grid gap-6">
                   <section className="rounded-2xl border border-[#D9DCD6] p-5">
-                    <h4 className="flex items-center gap-2 font-heading text-xl font-extrabold text-[#16425B]"><BookOpen className="size-5 text-[#2F6690]" />{t.classes.booksLabel}</h4>
+                    <h4 className="flex items-center gap-2 font-heading text-xl font-extrabold text-[#16425B]"><span className="grid size-9 place-items-center rounded-xl bg-[#81C3D7]/20 text-[#2F6690]"><BookOpen className="size-5" /></span>{t.classes.booksLabel}</h4>
                     <ol className="mt-4 columns-1 gap-8 space-y-2 pl-5 text-sm leading-6 text-slate-700 md:columns-2">
                       {selectedClass.books.map((book, index) => <li key={`book-${index}`} className="break-inside-avoid list-decimal">{book}</li>)}
                     </ol>
                   </section>
 
                   <section className="rounded-2xl border border-[#D9DCD6] p-5">
-                    <h4 className="flex items-center gap-2 font-heading text-xl font-extrabold text-[#16425B]"><ClipboardList className="size-5 text-[#2F6690]" />{t.classes.suppliesLabel}</h4>
+                    <h4 className="flex items-center gap-2 font-heading text-xl font-extrabold text-[#16425B]"><span className="grid size-9 place-items-center rounded-xl bg-[#81C3D7]/20 text-[#2F6690]"><ClipboardList className="size-5" /></span>{t.classes.suppliesLabel}</h4>
                     <ul className="mt-4 grid gap-2 text-sm leading-6 text-slate-700 md:grid-cols-2">
                       {selectedClass.supplies.map((item, index) => <li key={`supply-${index}`} className="flex gap-2 rounded-xl bg-[#F7F8F5] px-3 py-2"><span className="mt-2 size-1.5 shrink-0 rounded-full bg-[#2F6690]" />{item}</li>)}
                     </ul>
@@ -178,7 +181,7 @@ export default function Home() {
         <section id="admissions" className="section-pad"><div className="mx-auto grid max-w-7xl gap-10 lg:grid-cols-2"><motion.div {...fade}><p className="font-bold text-[#2F6690]">{t.nav.admissions}</p><h2 className="mt-3 font-heading text-4xl font-black text-[#16425B]">{t.admissions.title}</h2><p className="mt-4 text-lg leading-8 text-slate-600">{t.admissions.text}</p><ol className="mt-8 space-y-4">{t.admissions.steps.map((step, i) => <li key={`step-${i}`} className="flex items-center gap-4 rounded-2xl bg-[#F7F8F5] p-4"><span className="grid size-10 place-items-center rounded-full bg-[#2F6690] font-bold text-white">{i + 1}</span><span className="font-semibold text-[#16425B]">{step}</span></li>)}</ol></motion.div>
           <motion.form {...fade} onSubmit={submit} className="rounded-3xl bg-[#F7F8F5] p-6 shadow-xl shadow-slate-200"><h3 className="font-heading text-2xl font-bold text-[#16425B]">{t.admissions.formTitle}</h3>{["name", "phone", "email"].map((field) => <label key={field} className="mt-4 block text-sm font-bold text-slate-700">{t.admissions.fields[field as "name" | "phone" | "email"]}<input suppressHydrationWarning required={field !== "email"} type={field === "email" ? "email" : "text"} className="mt-2 w-full rounded-xl border border-[#D9DCD6] bg-white px-4 py-3" /></label>)}<label className="mt-4 block text-sm font-bold text-slate-700">{t.admissions.fields.grade}<select suppressHydrationWarning className="mt-2 w-full rounded-xl border border-[#D9DCD6] bg-white px-4 py-3"><option>Petite Section</option><option>Moyenne Section</option><option>Grande Section</option><option>1ère Année Fondamentale</option><option>2ème Année Fondamentale</option><option>3ème Année Fondamentale</option><option>4ème Année Fondamentale</option><option>5ème Année Fondamentale</option><option>6ème Année Fondamentale</option></select></label><label className="mt-4 block text-sm font-bold text-slate-700">{t.admissions.fields.message}<textarea suppressHydrationWarning rows={4} className="mt-2 w-full rounded-xl border border-[#D9DCD6] bg-white px-4 py-3" /></label>{/* TODO: connect to backend or email service */}<button type="submit" suppressHydrationWarning className="mt-5 inline-flex items-center gap-2 rounded-full bg-[#16425B] px-7 py-4 font-bold text-white hover:bg-[#2F6690]"><Send size={18} />{t.admissions.send}</button>{sent && <p role="status" className="mt-4 font-semibold text-[#2F6690]">{t.admissions.success}</p>}</motion.form></div></section>
 
-        <section id="contact" className="section-pad bg-[#F7F8F5]"><div className="mx-auto grid max-w-7xl gap-8 lg:grid-cols-2"><motion.div {...fade}><h2 className="font-heading text-4xl font-black text-[#16425B]">{t.contact.title}</h2><p className="mt-4 text-lg text-slate-600">{t.contact.text}</p><div className="mt-8 grid gap-4"><p><MapPin className="mr-2 inline text-[#2F6690]" />{schoolInfo.address}</p><p><Phone className="mr-2 inline text-[#2F6690]" />{schoolInfo.phone}</p><p><Mail className="mr-2 inline text-[#2F6690]" />{schoolInfo.email}</p><p><Smartphone className="mr-2 inline text-[#2F6690]" />{language === "kr" ? schoolInfo.hoursKr : schoolInfo.hoursFr}</p></div><div className="mt-6 flex gap-3"><a aria-label="Facebook" href={socialLinks.facebook} className="rounded-full bg-white p-3 text-[#16425B]"><FacebookIcon className="size-6" /></a><a aria-label="Instagram" href={socialLinks.instagram} className="rounded-full bg-white p-3 text-[#16425B]"><InstagramIcon className="size-6" /></a><a aria-label="WhatsApp" href={socialLinks.whatsapp} className="rounded-full bg-white p-3 text-[#16425B]"><Phone /></a></div></motion.div><motion.div {...fade} className="grid min-h-80 place-items-center rounded-3xl bg-white p-8 text-center shadow-xl shadow-slate-200"><div><MapPin className="mx-auto mb-4 size-12 text-[#2F6690]" /><p className="font-heading text-2xl font-bold text-[#16425B]">{t.contact.map}</p><p className="mt-2 text-slate-600">19.608° N, 72.214° W</p></div></motion.div></div></section>
+        <section id="contact" className="section-pad bg-[#F7F8F5]"><div className="mx-auto grid max-w-7xl gap-8 lg:grid-cols-2"><motion.div {...fade}><h2 className="font-heading text-4xl font-black text-[#16425B]">{t.contact.title}</h2><p className="mt-4 text-lg text-slate-600">{t.contact.text}</p><div className="mt-8 grid gap-4"><p><span className="mr-3 inline-grid size-9 place-items-center rounded-xl bg-white text-[#2F6690] shadow-sm"><MapPin className="size-5" /></span>{schoolInfo.address}</p><p><span className="mr-3 inline-grid size-9 place-items-center rounded-xl bg-white text-[#2F6690] shadow-sm"><Phone className="size-5" /></span>{schoolInfo.phone}</p><p><span className="mr-3 inline-grid size-9 place-items-center rounded-xl bg-white text-[#2F6690] shadow-sm"><Mail className="size-5" /></span>{schoolInfo.email}</p><p><span className="mr-3 inline-grid size-9 place-items-center rounded-xl bg-white text-[#2F6690] shadow-sm"><Smartphone className="size-5" /></span>{language === "kr" ? schoolInfo.hoursKr : schoolInfo.hoursFr}</p></div><div className="mt-6 flex gap-3"><a aria-label="Facebook" href={socialLinks.facebook} className="rounded-2xl bg-white p-3 text-[#16425B] shadow-sm transition hover:-translate-y-0.5 hover:text-[#2F6690] hover:shadow-md"><FacebookIcon className="size-5" /></a><a aria-label="Instagram" href={socialLinks.instagram} className="rounded-2xl bg-white p-3 text-[#16425B] shadow-sm transition hover:-translate-y-0.5 hover:text-[#2F6690] hover:shadow-md"><InstagramIcon className="size-5" /></a><a aria-label="WhatsApp" href={socialLinks.whatsapp} className="rounded-2xl bg-white p-3 text-[#16425B] shadow-sm transition hover:-translate-y-0.5 hover:text-[#2F6690] hover:shadow-md"><MessageCircle className="size-5" /></a></div></motion.div><motion.div {...fade} className="grid min-h-80 place-items-center rounded-3xl bg-white p-8 text-center shadow-xl shadow-slate-200"><div><span className="mx-auto mb-4 grid size-16 place-items-center rounded-3xl bg-gradient-to-br from-[#81C3D7] to-[#2F6690] text-white shadow-lg shadow-[#2F6690]/20"><MapPin className="size-8" /></span><p className="font-heading text-2xl font-bold text-[#16425B]">{t.contact.map}</p><p className="mt-2 text-slate-600">19.608° N, 72.214° W</p></div></motion.div></div></section>
       </main>
       <footer className="bg-[#16425B] px-4 py-10 text-white"><div className="mx-auto flex max-w-7xl flex-col gap-6 md:flex-row md:items-center md:justify-between"><div><strong className="font-heading text-xl">{schoolInfo.name}</strong><p className="text-white/70">{language === "kr" ? schoolInfo.mottoKr : schoolInfo.mottoFr}</p></div><p>© {new Date().getFullYear()} • {t.footer.made}</p></div></footer>
     </>
