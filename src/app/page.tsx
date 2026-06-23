@@ -135,8 +135,8 @@ export default function Home() {
               <h2 className="mt-3 font-heading text-3xl font-black text-[#16425B] sm:text-4xl">{t.classes.title}</h2>
               <p className="mt-4 text-base leading-7 text-slate-600 sm:text-lg sm:leading-8">{t.classes.text}</p>
             </motion.div>
-            <div className="mt-8 border-b border-[#D9DCD6]" role="tablist" aria-label="Cycles des classes ouvertes">
-              <div className="flex gap-2 overflow-x-auto">
+            <div className="mt-8 overflow-hidden border-b border-[#D9DCD6]" role="tablist" aria-label="Cycles des classes ouvertes">
+              <div className="flex gap-2 overflow-hidden [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
                 {classCycles.map((cycle, index) => {
                   const isActive = activeClassCycle === index;
                   return (
@@ -150,7 +150,7 @@ export default function Home() {
                       tabIndex={isActive ? 0 : -1}
                       onClick={() => selectClassCycle(index)}
                       onKeyDown={(event) => handleClassTabKeyDown(event, index)}
-                      className={`relative shrink-0 rounded-t-2xl px-4 py-3 text-sm font-extrabold transition duration-300 sm:px-6 sm:text-base ${isActive ? "bg-[#16425B] text-white shadow-lg shadow-[#16425B]/15" : "text-slate-500 hover:text-[#16425B]"}`}
+                      className={`relative shrink-0 rounded-full px-4 py-2 text-sm font-extrabold transition-colors duration-200 sm:text-base ${isActive ? "bg-[#16425B] text-white shadow-lg shadow-[#16425B]/15" : "text-slate-500 hover:bg-slate-100 hover:text-[#16425B]"}`}
                     >
                       <span className="sm:hidden">{cycle.compactLabel}</span>
                       <span className="hidden sm:inline">{cycle.label}</span>
@@ -171,14 +171,14 @@ export default function Home() {
                   id={`class-cycle-panel-${activeClassCycle}`}
                   role="tabpanel"
                   aria-labelledby={`class-cycle-tab-${activeClassCycle}`}
-                  initial={{ opacity: 0, x: 20 }}
-                  animate={{ opacity: 1, x: 0 }}
-                  exit={{ opacity: 0, x: -20 }}
-                  transition={{ duration: 0.3, ease: "easeOut" }}
-                  className="grid gap-4 sm:grid-cols-2 sm:gap-6 lg:grid-cols-3"
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  exit={{ opacity: 0 }}
+                  transition={{ duration: 0.25, ease: "easeOut" }}
+                  className="grid auto-rows-fr grid-cols-1 gap-4 md:grid-cols-3 md:gap-6"
                 >
                   {activeCycle.classes.map((schoolClass, classIndex) => (
-                    <article key={`class-${activeClassCycle}-${classIndex}-${schoolClass.title}`} className="relative flex h-full min-h-full flex-col overflow-hidden rounded-2xl border border-[#D9DCD6] bg-white shadow-lg shadow-slate-200 transition hover:-translate-y-1 hover:shadow-xl">
+                    <article key={`class-${activeClassCycle}-${classIndex}-${schoolClass.title}`} className="relative flex h-full flex-col overflow-hidden rounded-2xl border border-[#D9DCD6] bg-white shadow-md shadow-slate-200 transition-shadow duration-300 hover:shadow-lg">
                       <div className="relative bg-[#16425B] p-5 text-white sm:p-6">
                         <Image src={cardLogo} alt="" width={92} height={92} className="float-right ml-3 mb-3 size-16 rounded-full border-4 border-white/20 object-cover opacity-90 sm:absolute sm:right-4 sm:top-4 sm:mb-0 sm:ml-0 sm:size-20" />
                         <p className="text-xs font-bold uppercase tracking-wide text-[#E9C46A] sm:pr-24 sm:text-sm">{schoolClass.level}</p>
@@ -186,7 +186,7 @@ export default function Home() {
                         <p className="mt-4 text-sm font-bold text-white/75">2026-2027</p>
                       </div>
 
-                      <div className="flex flex-1 flex-col gap-5 p-6">
+                      <div className="flex flex-1 flex-col gap-3 p-5 sm:p-6">
                         <div className="rounded-2xl bg-[#81C3D7]/20 p-4">
                           <p className="text-sm font-bold text-[#2F6690]">{t.classes.feeLabel}</p>
                           <p className="font-heading text-3xl font-black text-[#16425B] sm:text-4xl">{schoolClass.fee}</p>
@@ -196,7 +196,7 @@ export default function Home() {
                           <span className="rounded-xl bg-[#F7F8F5] px-2 py-3">{schoolClass.books.length} {t.classes.booksLabel}</span>
                           <span className="rounded-xl bg-[#F7F8F5] px-2 py-3">{schoolClass.supplies.length} {t.classes.suppliesLabel}</span>
                         </div>
-                        <button type="button" suppressHydrationWarning onClick={() => setSelectedClass(schoolClass)} className="mt-auto inline-flex justify-center rounded-full bg-[#16425B] px-5 py-3 text-sm font-bold text-white transition hover:bg-[#2F6690]">{t.classes.openLabel}</button>
+                        <button type="button" suppressHydrationWarning onClick={() => setSelectedClass(schoolClass)} className="mt-auto inline-flex w-full justify-center rounded-full bg-[#16425B] px-5 py-3 text-sm font-bold text-white transition hover:bg-[#2F6690]">{t.classes.openLabel}</button>
                       </div>
                     </article>
                   ))}
