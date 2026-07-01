@@ -1,7 +1,7 @@
 "use client";
 
 import { AnimatePresence, motion } from "framer-motion";
-import { Award, BookOpen, BrainCircuit, ClipboardCheck, ClipboardList, Dumbbell, Flag, Globe2, GraduationCap, HeartHandshake, Hourglass, Landmark, LibraryBig, Mail, MapPin, MessageCircle, Palette, Phone, Send, Smartphone, Sprout, UsersRound, WalletCards, X, type LucideIcon } from "lucide-react";
+import { Award, BookOpen, BrainCircuit, ClipboardCheck, ClipboardList, Dumbbell, Flag, Globe2, GraduationCap, HeartHandshake, Hourglass, Landmark, LibraryBig, Mail, MapPin, MessageCircle, Palette, Phone, Send, ShieldCheck, Smartphone, Sprout, UsersRound, WalletCards, X, type LucideIcon } from "lucide-react";
 import Image from "next/image";
 import type { FormEvent, KeyboardEvent, SVGProps } from "react";
 import { useEffect, useRef, useState } from "react";
@@ -46,11 +46,23 @@ function InstagramIcon(props: SVGProps<SVGSVGElement>) {
   );
 }
 
-const modernIconBadge = "grid size-12 place-items-center rounded-2xl bg-gradient-to-br from-[#E9C46A] to-[#C99A2E] text-white shadow-lg shadow-[#C99A2E]/25 ring-1 ring-white/70 transition duration-300 group-hover:scale-105 group-hover:rotate-3";
-const smallIconBadge = "grid size-10 place-items-center rounded-2xl bg-[#81C3D7]/20 text-[#2F6690] ring-1 ring-[#81C3D7]/35";
+const modernIconBadge = "grid size-14 place-items-center rounded-2xl bg-gradient-to-br from-[#0B3D5C] to-[#052E46] text-white shadow-lg shadow-[#0B3D5C]/20 ring-1 ring-white/70 transition duration-300 group-hover:scale-105 group-hover:rotate-3 group-even:from-[#E5AD32] group-even:to-[#B8790E]";
+const smallIconBadge = "flex items-center gap-3 rounded-2xl bg-white/75 px-4 py-3 text-[#0B3D5C] shadow-sm ring-1 ring-[#E5AD32]/20 transition hover:-translate-y-1 hover:shadow-md";
+const heroFeatures = [
+  { icon: BookOpen, title: "Excellence académique", text: "Enseignement rigoureux" },
+  { icon: UsersRound, title: "Valeurs et discipline", text: "Respect, intégrité, responsabilité" },
+  { icon: Sprout, title: "Ancrés dans nos racines", text: "Fiers de notre culture" },
+  { icon: Globe2, title: "Ouverts sur le monde", text: "Préparés pour l’avenir" },
+] as const;
+const values = [
+  { icon: ShieldCheck, label: "Discipline" },
+  { icon: LibraryBig, label: "Savoir" },
+  { icon: Landmark, label: "Culture" },
+  { icon: HeartHandshake, label: "Service" },
+] as const;
 
 const fade = { initial: { opacity: 0, y: 24 }, whileInView: { opacity: 1, y: 0 }, viewport: { once: true, margin: "-80px" }, transition: { duration: 0.55 } };
-const programIcons = [BrainCircuit, BookOpen, Smartphone, Palette, Dumbbell, Landmark, UsersRound] as const;
+const programIcons = [BrainCircuit, BookOpen, Smartphone, Palette, Dumbbell, UsersRound] as const;
 const galleryImages = [classroomImage, teamworkImage, cultureImage, labImage, sportImage, libraryImage, celebrationImage, techImage] as const;
 const staffImages = [
   arslinSalomonImage,
@@ -82,7 +94,7 @@ const classCycles = [
 ] as const;
 
 function MetricCard({ icon: Icon, value, suffix, label, className }: { icon: LucideIcon; value: number; suffix: string; label: string; className?: string }) {
-  return <motion.div {...fade} className={`absolute z-20 w-32 rounded-2xl border border-white/60 bg-white/70 p-4 shadow-xl backdrop-blur sm:w-36 ${className ?? ""}`}><span className="grid size-11 place-items-center rounded-2xl bg-white text-[#C99A2E] shadow-inner ring-1 ring-[#E9C46A]/30"><Icon className="size-6" aria-hidden="true" /></span><strong className="mt-2 block font-heading text-2xl font-black text-[#16425B]">{value}{suffix}</strong><span className="text-xs font-semibold text-slate-600">{label}</span></motion.div>;
+  return <motion.div {...fade} className={`absolute z-20 w-32 rounded-2xl border border-white/80 bg-white/90 p-4 shadow-xl shadow-[#0B3D5C]/10 backdrop-blur sm:w-36 ${className ?? ""}`}><Icon className="mb-2 size-7 text-[#D79B16]" aria-hidden="true" /><strong className="block font-heading text-2xl font-black text-[#0B3D5C]">{value}{suffix}</strong><span className="text-xs font-extrabold leading-tight text-slate-600">{label}</span></motion.div>;
 }
 
 export default function Home() {
@@ -114,25 +126,35 @@ export default function Home() {
       <a href="#main" className="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-[60] focus:rounded-lg focus:bg-white focus:p-3">Skip to content</a>
       <Header />
       <main id="main">
-        <section id="home" className="relative grid min-h-[70svh] place-items-center overflow-hidden px-4 pt-24 text-white sm:pt-28 md:min-h-[80vh]">
-          <Image src={heroImage} alt="Citadelle Laferrière overlooking the mountains near Milot, Haiti" fill priority sizes="100vw" className="object-cover" />
-          <div className="absolute inset-0 bg-gradient-to-br from-[#16425B]/85 via-[#2F6690]/70 to-[#81C3D7]/55" />
-          <motion.div initial={{ opacity: 0, y: 28 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.7 }} className="relative mx-auto max-w-5xl py-16 text-center sm:py-24">
-            <p className="mb-4 text-sm font-semibold tracking-[0.18em] text-[#E9C46A] uppercase sm:mb-5 sm:text-base sm:tracking-[0.2em]">{t.hero.eyebrow}</p>
-            <h1 className="font-heading text-4xl font-black leading-tight min-[380px]:text-5xl md:text-7xl">{t.hero.headline}</h1>
-            <p className="mx-auto mt-5 max-w-3xl text-base leading-7 text-blue-50 sm:mt-6 md:text-xl md:leading-8">{t.hero.text}</p>
-            <div className="mt-9 flex flex-col justify-center gap-4 sm:flex-row"><a href="#admissions" className="rounded-full bg-[#E9C46A] px-7 py-4 font-bold text-[#16425B] shadow-xl transition hover:-translate-y-0.5 hover:bg-[#E9C46A]/90">{t.hero.cta}</a><a href="#about" className="rounded-full border border-white/60 px-7 py-4 font-bold text-white transition hover:bg-white/10">{t.hero.secondary}</a></div>
-          </motion.div>
+        <section id="home" className="relative overflow-hidden text-white">
+          <div className="relative min-h-[620px] px-4 pt-24 sm:pt-28 md:min-h-[650px]">
+            <Image src={heroImage} alt="Citadelle Laferrière overlooking the mountains near Milot, Haiti" fill priority sizes="100vw" className="object-cover" />
+            <div className="absolute inset-0 bg-gradient-to-r from-[#082F49]/92 via-[#0B3D5C]/66 to-[#0B3D5C]/10" />
+            <div className="absolute inset-0 bg-gradient-to-t from-[#082F49]/65 via-transparent to-transparent" />
+            <motion.div initial={{ opacity: 0, y: 28 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.7 }} className="relative mx-auto flex max-w-7xl items-center py-16 sm:py-24">
+              <div className="max-w-3xl text-left">
+                <p className="mb-5 text-sm font-black uppercase tracking-[0.28em] text-[#E5AD32] sm:text-base sm:tracking-[0.34em]">{t.hero.eyebrow}</p>
+                <h1 className="font-heading text-5xl font-black leading-[1.05] tracking-tight min-[380px]:text-6xl md:text-7xl">{t.hero.headline}</h1>
+                <p className="mt-6 max-w-2xl text-base font-semibold leading-7 text-blue-50 sm:text-lg sm:leading-8">{t.hero.text}</p>
+                <div className="mt-8 flex flex-col gap-4 sm:flex-row"><a href="#admissions" className="inline-flex items-center justify-center gap-2 rounded-2xl bg-[#E5AD32] px-7 py-4 font-extrabold text-[#0B3D5C] shadow-xl shadow-black/20 transition hover:-translate-y-1 hover:bg-[#f0bf4a]"><GraduationCap className="size-5" aria-hidden="true" />{t.hero.cta}</a><a href="#about" className="inline-flex items-center justify-center gap-2 rounded-2xl border border-white/60 bg-white/10 px-7 py-4 font-extrabold text-white backdrop-blur transition hover:-translate-y-1 hover:bg-white/20"><Send className="size-5 text-[#E5AD32]" aria-hidden="true" />{t.hero.secondary}</a></div>
+              </div>
+            </motion.div>
+          </div>
+          <div className="relative z-20 mx-auto -mt-24 hidden max-w-6xl px-4 pb-4 md:block">
+            <div className="grid grid-cols-4 gap-4 rounded-2xl border border-white/20 bg-[#07314B]/82 px-7 py-5 shadow-2xl shadow-[#0B3D5C]/30 backdrop-blur-xl">
+              {heroFeatures.map(({ icon: Icon, title, text }) => <div key={title} className="group flex items-center gap-4 rounded-xl p-2 transition hover:bg-white/10"><Icon className="size-9 shrink-0 text-[#E5AD32] transition group-hover:scale-110" strokeWidth={1.8} aria-hidden="true" /><div><h3 className="text-sm font-extrabold">{title}</h3><p className="text-sm text-white/90">{text}</p></div></div>)}
+            </div>
+          </div>
         </section>
 
-        <section id="about" className="section-pad relative overflow-hidden bg-[#F7F8F5]">
+        <section id="about" className="section-pad relative overflow-hidden border-b border-[#E5AD32]/20 bg-[#FFFDF8]">
           <div aria-hidden="true" className="pointer-events-none absolute -left-24 top-12 size-80 rounded-full bg-[#81C3D7]/30 blur-3xl" />
           <div aria-hidden="true" className="pointer-events-none absolute -right-20 bottom-4 size-96 rounded-full bg-[#E9C46A]/25 blur-3xl" />
           <div className="relative mx-auto max-w-7xl">
             <div className="grid items-center gap-12 lg:grid-cols-2">
               <motion.div {...fade}>
-                <p className="font-bold text-[#2F6690]">{t.nav.about}</p>
-                <h2 className="mt-3 font-heading text-3xl font-black text-[#16425B] sm:text-4xl md:text-5xl">{t.about.title}</h2>
+                <p className="text-sm font-black uppercase tracking-[0.25em] text-[#D79B16]">{t.nav.about}</p>
+                <h2 className="mt-3 font-heading text-3xl font-black text-[#0B3D5C] sm:text-4xl md:text-5xl">{t.about.title}</h2>
                 <div className="mt-6 space-y-4 text-base leading-7 text-slate-600 sm:text-lg sm:leading-8">{t.about.intro.map((p, index) => <p key={`about-${index}`}>{p}</p>)}</div>
               </motion.div>
               <motion.div {...fade} className="relative mx-auto h-[36rem] w-full max-w-md sm:h-[31rem] sm:max-w-lg lg:h-[30rem]">
@@ -148,16 +170,13 @@ export default function Home() {
                 <MetricCard icon={ClipboardCheck} {...t.stats[3]} className="bottom-0 right-4 sm:bottom-8 sm:right-4 lg:bottom-4" />
               </motion.div>
             </div>
-            <div className="mt-16 flex items-center justify-center gap-10 text-[#2F6690] sm:gap-14">
-              <span className={smallIconBadge}><LibraryBig className="size-5" aria-hidden="true" /></span>
-              <span className={smallIconBadge}><Sprout className="size-5" aria-hidden="true" /></span>
-              <span className={smallIconBadge}><Flag className="size-5" aria-hidden="true" /></span>
-              <span className={smallIconBadge}><Globe2 className="size-5" aria-hidden="true" /></span>
+            <div className="mt-12 grid grid-cols-2 gap-4 text-[#0B3D5C] sm:flex sm:flex-wrap sm:items-center sm:gap-7">
+              {values.map(({ icon: Icon, label }) => <span key={label} className={smallIconBadge}><Icon className="size-5 text-[#7DA4BD]" aria-hidden="true" /><span className="text-sm font-extrabold">{label}</span></span>)}
             </div>
           </div>
         </section>
 
-        <section id="programs" className="section-pad"><div className="mx-auto max-w-7xl"><motion.div {...fade} className="max-w-3xl"><p className="font-bold text-[#2F6690]">{t.nav.programs}</p><h2 className="mt-3 font-heading text-3xl font-black text-[#16425B] sm:text-4xl">{t.programsTitle}</h2><p className="mt-4 text-lg text-slate-600">{t.programsText}</p></motion.div><div className="mt-10 grid gap-5 md:grid-cols-2">{t.programs.map((program, index) => { const ProgramIcon = programIcons[index] ?? BookOpen; return <article key={`program-${index}-${program.title}`} className="group rounded-2xl bg-white p-6 shadow-lg shadow-slate-200 transition hover:-translate-y-1 hover:shadow-xl"><span className={`${modernIconBadge} mb-5`}><ProgramIcon className="size-6" aria-hidden="true" /></span><h3 className="font-heading text-2xl font-bold text-[#16425B]">{program.title}</h3><p className="mt-3 leading-7 text-slate-600">{program.description}</p></article>; })}</div></div></section>
+        <section id="programs" className="border-b border-[#E5AD32]/20 bg-[#FAF8F2] px-4 py-10 sm:px-6 lg:px-8"><div className="mx-auto max-w-7xl"><motion.div {...fade} className="mx-auto max-w-3xl text-center"><h2 className="font-heading text-3xl font-black text-[#0B3D5C] sm:text-5xl">{t.programsTitle}</h2><div className="mx-auto mt-3 h-1 w-16 rounded-full bg-[#E5AD32]" /><p className="mt-3 text-sm font-semibold text-[#31536A]">{t.programsText}</p></motion.div><div className="mt-8 grid gap-5 md:grid-cols-2 lg:grid-cols-3">{t.programs.slice(0, 6).map((program, index) => { const ProgramIcon = programIcons[index] ?? BookOpen; return <article key={`program-${index}-${program.title}`} className="group flex gap-5 rounded-2xl border border-white bg-white p-6 shadow-[0_18px_40px_rgba(11,61,92,0.10)] transition duration-300 hover:-translate-y-2 hover:shadow-[0_24px_55px_rgba(11,61,92,0.16)]"><span className={modernIconBadge}><ProgramIcon className="size-8" aria-hidden="true" /></span><div><h3 className="font-heading text-xl font-black text-[#0B3D5C]">{program.title}</h3><p className="mt-2 leading-6 text-slate-600">{program.description}</p></div></article>; })}</div></div></section>
 
         <section id="classes" className="section-pad bg-[#F7F8F5]">
           <div className="mx-auto max-w-7xl">
