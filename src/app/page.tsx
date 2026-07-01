@@ -127,16 +127,19 @@ export default function Home() {
       <Header />
       <main id="main">
         <section id="home" className="relative overflow-hidden text-white">
-          <div className="relative min-h-[620px] px-4 pt-24 sm:pt-28 md:min-h-[650px]">
+          <div className="relative flex min-h-svh flex-col justify-center px-4 pb-16 pt-28 sm:min-h-[620px] sm:pb-20 sm:pt-32 md:min-h-[680px] md:pb-36">
             <Image src={heroImage} alt="Citadelle Laferrière overlooking the mountains near Milot, Haiti" fill priority sizes="100vw" className="object-cover" />
             <div className="absolute inset-0 bg-gradient-to-r from-[#082F49]/92 via-[#0B3D5C]/66 to-[#0B3D5C]/10" />
             <div className="absolute inset-0 bg-gradient-to-t from-[#082F49]/65 via-transparent to-transparent" />
-            <motion.div initial={{ opacity: 0, y: 28 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.7 }} className="relative mx-auto flex max-w-7xl items-center py-16 sm:py-24">
+            <motion.div initial={{ opacity: 0, y: 28 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.7 }} className="relative mx-auto w-full max-w-7xl">
               <div className="max-w-3xl text-left">
-                <p className="mb-5 text-sm font-black uppercase tracking-[0.28em] text-[#E5AD32] sm:text-base sm:tracking-[0.34em]">{t.hero.eyebrow}</p>
-                <h1 className="font-heading text-5xl font-black leading-[1.05] tracking-tight min-[380px]:text-6xl md:text-7xl">{t.hero.headline}</h1>
-                <p className="mt-6 max-w-2xl text-base font-semibold leading-7 text-blue-50 sm:text-lg sm:leading-8">{t.hero.text}</p>
-                <div className="mt-8 flex flex-col gap-4 sm:flex-row"><a href="#admissions" className="inline-flex items-center justify-center gap-2 rounded-2xl bg-[#E5AD32] px-7 py-4 font-extrabold text-[#0B3D5C] shadow-xl shadow-black/20 transition hover:-translate-y-1 hover:bg-[#f0bf4a]"><GraduationCap className="size-5" aria-hidden="true" />{t.hero.cta}</a><a href="#about" className="inline-flex items-center justify-center gap-2 rounded-2xl border border-white/60 bg-white/10 px-7 py-4 font-extrabold text-white backdrop-blur transition hover:-translate-y-1 hover:bg-white/20"><Send className="size-5 text-[#E5AD32]" aria-hidden="true" />{t.hero.secondary}</a></div>
+                <p className="mb-4 text-xs font-black uppercase tracking-[0.22em] text-[#E5AD32] sm:mb-5 sm:text-sm sm:tracking-[0.28em] md:text-base md:tracking-[0.34em]">{t.hero.eyebrow}</p>
+                <h1 className="font-heading text-3xl font-black leading-[1.08] tracking-tight min-[380px]:text-4xl sm:text-5xl md:text-6xl lg:text-7xl">{t.hero.headline}</h1>
+                <p className="mt-4 max-w-2xl text-sm font-semibold leading-relaxed text-blue-50 sm:mt-6 sm:text-base sm:leading-7 md:text-lg md:leading-8">{t.hero.text}</p>
+                <div className="mt-6 flex flex-col gap-3 sm:mt-8 sm:flex-row sm:gap-4">
+                  <a href="#admissions" className="inline-flex items-center justify-center gap-2 rounded-2xl bg-[#E5AD32] px-6 py-3.5 text-sm font-extrabold text-[#0B3D5C] shadow-xl shadow-black/20 transition hover:-translate-y-1 hover:bg-[#f0bf4a] sm:px-7 sm:py-4 sm:text-base"><GraduationCap className="size-5" aria-hidden="true" />{t.hero.cta}</a>
+                  <a href="#about" className="inline-flex items-center justify-center gap-2 rounded-2xl border border-white/60 bg-white/10 px-6 py-3.5 text-sm font-extrabold text-white backdrop-blur transition hover:-translate-y-1 hover:bg-white/20 sm:px-7 sm:py-4 sm:text-base"><Send className="size-5 text-[#E5AD32]" aria-hidden="true" />{t.hero.secondary}</a>
+                </div>
               </div>
             </motion.div>
           </div>
