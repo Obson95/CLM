@@ -8,14 +8,29 @@ export const schoolInfo = {
   phone: "+509 0000-0000",
   email: "info@college-laferriere.ht",
   hoursKr: "Lendi–Vandredi: 7:30 AM – 3:30 PM",
-  hoursFr: "Lundi–Vendredi : 7h30 – 15h30",
+  hoursFr: "Lundi – Vendredi : 7h30 – 3h30 PM",
+  saturdayHoursKr: "Samdi: 8:00 AM – 12:00 PM",
+  saturdayHoursFr: "Samedi : 8h00 – 12h00 PM",
 };
 
 export const socialLinks = {
   facebook: "https://facebook.com",
   instagram: "https://instagram.com",
   whatsapp: "https://wa.me/50900000000",
+  youtube: "https://youtube.com",
 };
+
+export const staffMembers = [
+  { name: "Arslin Salomon", role: { fr: "Directeur Général", kr: "Direktè Jeneral" }, image: "Arslin Salomon.jpg" },
+  { name: "Bruno Salomon", role: { fr: "Directeur Académique", kr: "Direktè Akademik" }, image: "Bruno Salomon.jpg" },
+  { name: "Quetty Blaise", role: { fr: "Directrice Administrative", kr: "Direktris Administratif" }, image: "Quetty Blaise.jpg" },
+  { name: "Obsnica Saint-Fleur", role: { fr: "Responsable Pédagogique", kr: "Responsab Pedagojik" }, image: "Obsnica Saint-Fleur.jpg" },
+  { name: "Salomon Desamours", role: { fr: "Coordinateur des Études", kr: "Kowòdonatè Etid" }, image: "Salomon Desamours.jpg" },
+  { name: "Obson Saint-Fleur", role: { fr: "Responsable Disciplinaire", kr: "Responsab Disiplin" }, image: "Obson Saint-Fleur.jpg" },
+  { name: "Obertin Saint-Fleur", role: { fr: "Responsable Financier", kr: "Responsab Finans" }, image: "Obertin Saint-Fleur.jpg" },
+  { name: "Bernice Saint-Fleur", role: { fr: "Conseillère Éducative", kr: "Konseye Edikatif" }, image: "Bernice Saint-Fleur.jpg" },
+  { name: "Edouard Fils-Aime", role: { fr: "Responsable Logistique", kr: "Responsab Lojistik" }, image: "Edouard Fils-Aime.jpg" },
+] as const;
 
 export const openingClasses = [
   {
