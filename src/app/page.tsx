@@ -1,7 +1,7 @@
 "use client";
 
 import { AnimatePresence, motion } from "framer-motion";
-import { BookOpen, BrainCircuit, ClipboardCheck, ClipboardList, Dumbbell, Flag, Globe2, GraduationCap, Hourglass, Landmark, LibraryBig, Mail, MapPin, MessageCircle, Palette, Phone, Send, Smartphone, Sprout, UsersRound, WalletCards, X, type LucideIcon } from "lucide-react";
+import { Award, BookOpen, BrainCircuit, ClipboardCheck, ClipboardList, Dumbbell, Flag, Globe2, GraduationCap, HeartHandshake, Hourglass, Landmark, LibraryBig, Mail, MapPin, MessageCircle, Palette, Phone, Send, Smartphone, Sprout, UsersRound, WalletCards, X, type LucideIcon } from "lucide-react";
 import Image from "next/image";
 import type { FormEvent, KeyboardEvent, SVGProps } from "react";
 import { useEffect, useRef, useState } from "react";
@@ -15,6 +15,15 @@ import sportImage from "../../assets/sport.png";
 import techImage from "../../assets/tech.png";
 import teamworkImage from "../../assets/travialequipe.png";
 import celebrationImage from "../../assets/graduate.png";
+import arslinSalomonImage from "../../assets/staff/Arslin Salomon.jpg";
+import berniceSaintFleurImage from "../../assets/staff/Bernice Saint-Fleur.jpg";
+import brunoSalomonImage from "../../assets/staff/Bruno Salomon.jpg";
+import edouardFilsAimeImage from "../../assets/staff/Edouard Fils-Aime.jpg";
+import obertinSaintFleurImage from "../../assets/staff/Obertin Saint-Fleur .jpg";
+import obsnicaSaintFleurImage from "../../assets/staff/Obsnica Saint-Fleur.jpg";
+import obsonSaintFleurImage from "../../assets/staff/Obson Saint-Fleur.jpg";
+import quettyBlaiseImage from "../../assets/staff/Quetty Blaise.jpg";
+import salomonDesamoursImage from "../../assets/staff/Salomon Desamours.jpg";
 import { Header } from "@/components/Header";
 import { useLanguage } from "@/hooks/useLanguage";
 import { openingClasses, schoolInfo, socialLinks } from "@/lib/constants";
@@ -43,6 +52,28 @@ const smallIconBadge = "grid size-10 place-items-center rounded-2xl bg-[#81C3D7]
 const fade = { initial: { opacity: 0, y: 24 }, whileInView: { opacity: 1, y: 0 }, viewport: { once: true, margin: "-80px" }, transition: { duration: 0.55 } };
 const programIcons = [BrainCircuit, BookOpen, Smartphone, Palette, Dumbbell, Landmark, UsersRound] as const;
 const galleryImages = [classroomImage, teamworkImage, cultureImage, labImage, sportImage, libraryImage, celebrationImage, techImage] as const;
+const staffImages = [
+  arslinSalomonImage,
+  brunoSalomonImage,
+  quettyBlaiseImage,
+  obsnicaSaintFleurImage,
+  salomonDesamoursImage,
+  obsonSaintFleurImage,
+  obertinSaintFleurImage,
+  berniceSaintFleurImage,
+  edouardFilsAimeImage,
+] as const;
+const staffNames = [
+  "Arslin Salomon",
+  "Bruno Salomon",
+  "Quetty Blaise",
+  "Obsnica Saint-Fleur",
+  "Salomon Desamours",
+  "Obson Saint-Fleur",
+  "Obertin Saint-Fleur",
+  "Bernice Saint-Fleur",
+  "Edouard Fils-Aime",
+] as const;
 
 const classCycles = [
   { label: "Préscolaire", compactLabel: "Préscol.", classes: openingClasses.slice(0, 3) },
@@ -252,6 +283,60 @@ export default function Home() {
             </div>
           </div>
         )}
+
+        <section id="staff" className="section-pad relative overflow-hidden bg-white">
+          <div aria-hidden="true" className="pointer-events-none absolute -left-24 top-20 size-80 rounded-full bg-[#81C3D7]/25 blur-3xl" />
+          <div aria-hidden="true" className="pointer-events-none absolute -right-24 bottom-12 size-96 rounded-full bg-[#E9C46A]/20 blur-3xl" />
+          <div className="relative mx-auto max-w-7xl">
+            <motion.div {...fade} className="mx-auto max-w-3xl text-center">
+              <p className="font-bold text-[#2F6690]">{t.nav.staff}</p>
+              <h2 className="mt-3 font-heading text-3xl font-black text-[#16425B] sm:text-4xl md:text-5xl">{t.staff.title}</h2>
+              <p className="mx-auto mt-4 max-w-2xl text-base leading-7 text-slate-600 sm:text-lg sm:leading-8">{t.staff.text}</p>
+            </motion.div>
+
+            <motion.div {...fade} className="mt-10 grid gap-4 rounded-3xl border border-white/70 bg-[#F7F8F5]/80 p-4 shadow-xl shadow-slate-200/70 backdrop-blur sm:grid-cols-3 sm:p-5">
+              {t.staff.highlights.map((highlight, index) => {
+                const HighlightIcon = index === 0 ? GraduationCap : index === 1 ? HeartHandshake : Award;
+                return (
+                  <div key={highlight} className="rounded-2xl bg-white p-5 text-center shadow-sm ring-1 ring-[#D9DCD6]/60">
+                    <span className="mx-auto mb-3 grid size-12 place-items-center rounded-2xl bg-[#81C3D7]/20 text-[#2F6690]">
+                      <HighlightIcon className="size-6" aria-hidden="true" />
+                    </span>
+                    <p className="font-bold leading-6 text-[#16425B]">{highlight}</p>
+                  </div>
+                );
+              })}
+            </motion.div>
+
+            <div className="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+              {staffNames.map((name, index) => (
+                <motion.article
+                  key={name}
+                  initial={{ opacity: 0, y: 22 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true, margin: "-80px" }}
+                  transition={{ duration: 0.5, delay: (index % 3) * 0.08 }}
+                  className="group overflow-hidden rounded-3xl bg-white shadow-lg shadow-slate-200 ring-1 ring-[#D9DCD6]/70 transition duration-300 hover:-translate-y-1 hover:shadow-2xl hover:shadow-slate-300/70"
+                >
+                  <div className="relative aspect-[4/5] overflow-hidden bg-[#16425B]">
+                    <Image src={staffImages[index]} alt={`${name} - ${t.staff.memberAlt}`} fill sizes="(min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw" className="object-cover transition duration-500 group-hover:scale-105" />
+                    <div className="absolute inset-0 bg-gradient-to-t from-[#16425B]/85 via-[#16425B]/10 to-transparent opacity-90" />
+                    <div className="absolute bottom-0 left-0 right-0 p-5 text-white">
+                      <p className="text-xs font-extrabold uppercase tracking-[0.18em] text-[#E9C46A]">{t.staff.role}</p>
+                      <h3 className="mt-2 font-heading text-2xl font-black leading-tight">{name}</h3>
+                    </div>
+                  </div>
+                  <div className="flex items-center justify-between gap-3 p-5">
+                    <p className="text-sm font-semibold leading-6 text-slate-600">{t.staff.cardText}</p>
+                    <span className="grid size-11 shrink-0 place-items-center rounded-2xl bg-[#F7F8F5] text-[#2F6690] ring-1 ring-[#D9DCD6]">
+                      <UsersRound className="size-5" aria-hidden="true" />
+                    </span>
+                  </div>
+                </motion.article>
+              ))}
+            </div>
+          </div>
+        </section>
 
         <section id="life" className="section-pad bg-slate-50">
           <div className="mx-auto max-w-7xl">

@@ -8,7 +8,7 @@ import { useLanguage } from "@/hooks/useLanguage";
 import { schoolInfo } from "@/lib/constants";
 import { LanguageToggle } from "./LanguageToggle";
 
-const links = [ ["home", "#home"], ["about", "#about"], ["programs", "#programs"], ["classes", "#classes"], ["admissions", "#admissions"], ["contact", "#contact"] ] as const;
+const links = [ ["home", "#home"], ["about", "#about"], ["programs", "#programs"], ["classes", "#classes"], ["staff", "#staff"], ["admissions", "#admissions"], ["contact", "#contact"] ] as const;
 
 export function Header() {
   const { t } = useLanguage();
